@@ -142,27 +142,14 @@ public class GameController : MonoBehaviour
 
     void GenerateRandomCube()
     {
-        // 座標のリスト
-        Vector3[] spawnPositions = new Vector3[]
-        {
-            new Vector3(-1, 1, -1),
-            new Vector3(-1, 1, 0),
-            new Vector3(-1, 1, 1),
-            new Vector3(0, 1, -1),
-            new Vector3(0, 1, 0),
-            new Vector3(0, 1, 1),
-            new Vector3(1, 1, -1),
-            new Vector3(1, 1, 0),
-            new Vector3(1, 1, 1)
-        };
-
         // ランダムなインデックスを選択
-        int randomIndex = Random.Range(0, spawnPositions.Length);
+        int xRandomIndex = Random.Range(0, 3);
+        int zRandomIndex = Random.Range(0, 3);
 
         GameObject obj = (GameObject)Resources.Load("GrayCube");
         // Cubeプレハブを元に、インスタンスを生成、
         GameObject newCube = Instantiate(obj, pareObj.transform);
-        newCube.transform.position = spawnPositions[randomIndex];
+        newCube.transform.position = new Vector3(xRandomIndex - 1, 1, zRandomIndex - 1);
         spawnedCubes.Add(newCube);
         boardState[(int)newCube.transform.position.x + 1, (int)newCube.transform.position.z + 1, 0] = 3;
     }
