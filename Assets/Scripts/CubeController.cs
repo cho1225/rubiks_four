@@ -34,26 +34,11 @@ public class CubeController : MonoBehaviour
                 RePositionY();
             }
         }
-        //speed = 1.0f;
-        //if (gamecontroller.rePosition)
-        //{
-        //    MoveCube();
-        //}
-
-        //if (gamecontroller.RotationCheck == false)
-        //{
-        //    RePositionXZ();
-
-        //    if (cubePhsicsState == "hasfalled")
-        //    {
-        //        RePositionY();
-        //    }
-        //}
     }
 
     public void MoveCube()
     {
-        if (transform.position.y <= -1.0f)
+        if (transform.position.y <= -(gamecontroller.boardSize - 1) / 2)
         {
             speed = 0.0f;
             cubePhsicsState = "hasfalled";
@@ -64,9 +49,12 @@ public class CubeController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// kokokarasakiyabai
+    /// </summary>
+
     public void RePositionXZ()
     {
-        Vector3 delta = new Vector3(0, this.transform.position.y, 0);
         //xç¿ïWÇêÆÇ¶ÇÈ
         if (transform.position.x < -0.5f)
         {

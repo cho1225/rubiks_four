@@ -18,7 +18,8 @@ public class PanelController : MonoBehaviour
     GameController gamecontroller;
     public int PanelNumberX;
     public int PanelNumberY;
-    public int[,,] panelBoardState = new int[3, 3, 3];
+    public int[,,] panelBoardState;
+    private bool onBoard = false;
 
     void Start()
     {
@@ -29,6 +30,7 @@ public class PanelController : MonoBehaviour
 
         GameObject gameObject = GameObject.Find("GameObject");
         gamecontroller = gameObject.GetComponent<GameController>();
+        panelBoardState = new int[gamecontroller.boardSize, gamecontroller.boardSize, gamecontroller.boardSize];
     }
 
     public void PanelUpdate()
@@ -45,7 +47,7 @@ public class PanelController : MonoBehaviour
     {
         if (gamecontroller.gameState == "CanPush" && gamecontroller.hasPush == false)
         {
-            if (panelBoardState[PanelNumberX, PanelNumberY, 2] == 0)
+            if (panelBoardState[PanelNumberX, PanelNumberY, gamecontroller.boardSize - 1] == 0)
             {
                 // CubeプレハブをGameObject型で取得
                 if (gamecontroller.cubeColorState == "Red")
@@ -53,20 +55,11 @@ public class PanelController : MonoBehaviour
                     GameObject obj = (GameObject)Resources.Load("RedCube");
                     // Cubeプレハブを元に、インスタンスを生成、
                     GameObject newCube = Instantiate(obj, parentObject.transform);
-                    newCube.transform.position = new Vector3(transform.position.x, 1.0f, transform.position.z);
+                    newCube.transform.position = new Vector3(transform.position.x, (gamecontroller.boardSize - 1) / 2, transform.position.z);
                     gamecontroller.spawnedCubes.Add(newCube);
-                    if (panelBoardState[PanelNumberX, PanelNumberY, 0] == 0)
-                    {
-                        panelBoardState[PanelNumberX, PanelNumberY, 0] = 1;
-                    }
-                    else if (panelBoardState[PanelNumberX, PanelNumberY, 1] == 0)
-                    {
-                        panelBoardState[PanelNumberX, PanelNumberY, 1] = 1;
-                    }
-                    else
-                    {
-                        panelBoardState[PanelNumberX, PanelNumberY, 2] = 1;
-                    }
+
+                    CheckOnBoard(1);
+
                     gamecontroller.cubeColorState = "Blue";
                 }
                 else if (gamecontroller.cubeColorState == "Blue")
@@ -74,20 +67,11 @@ public class PanelController : MonoBehaviour
                     GameObject obj = (GameObject)Resources.Load("BlueCube");
                     // Cubeプレハブを元に、インスタンスを生成、
                     GameObject newCube = Instantiate(obj, parentObject.transform);
-                    newCube.transform.position = new Vector3(transform.position.x, 1.0f, transform.position.z);
+                    newCube.transform.position = new Vector3(transform.position.x, (gamecontroller.boardSize - 1) / 2, transform.position.z);
                     gamecontroller.spawnedCubes.Add(newCube);
-                    if (panelBoardState[PanelNumberX, PanelNumberY, 0] == 0)
-                    {
-                        panelBoardState[PanelNumberX, PanelNumberY, 0] = 2;
-                    }
-                    else if (panelBoardState[PanelNumberX, PanelNumberY, 1] == 0)
-                    {
-                        panelBoardState[PanelNumberX, PanelNumberY, 1] = 2;
-                    }
-                    else
-                    {
-                        panelBoardState[PanelNumberX, PanelNumberY, 2] = 2;
-                    }
+
+                    CheckOnBoard(2);
+
                     gamecontroller.cubeColorState = "Red";
                 }
                 else
@@ -97,6 +81,19 @@ public class PanelController : MonoBehaviour
                 }
                 gamecontroller.hasJudge = false;
                 gamecontroller.hasPush = true;
+            }
+        }
+    }
+
+    void CheckOnBoard(int playerID)
+    {
+        onBoard = true;
+        for (int i = 0; i < gamecontroller.boardSize; i++)
+        {
+            if (panelBoardState[PanelNumberX, PanelNumberY, i] == 0 && onBoard)
+            {
+                panelBoardState[PanelNumberX, PanelNumberY, i] = playerID;
+                onBoard = false;
             }
         }
     }

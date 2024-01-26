@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     public GameObject buttonReZ;
     public GameObject waku;
     public static string winner = "";
+    public int boardSize = 3;
     public int[,,] boardState = new int[3, 3, 3];
     public int[,,] rotatedBoardState = new int[3, 3, 3];
     public static int[,,] resultBoardState = new int[3, 3, 3];
@@ -156,6 +157,11 @@ public class GameController : MonoBehaviour
 
     public void XRotate()
     {
+        for (int i  = 0; i < panels.Count; i++)
+        {
+            panels[i].GetComponent<BoxCollider>().enabled = false;
+        }
+
         for (int i = 0; i < spawnedCubes.Count; i++)
         {
             cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
@@ -240,6 +246,10 @@ public class GameController : MonoBehaviour
             }
         }
         RotationCheck = false;
+        for (int i = 0; i < panels.Count; i++)
+        {
+            panels[i].GetComponent<BoxCollider>().enabled = true;
+        }
         for (int i = 0;i < spawnedCubes.Count; i++)
         {
             spawnedCubes[i].GetComponent<BoxCollider>().enabled = true;
