@@ -167,13 +167,18 @@ public class GameController : MonoBehaviour
             cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
             spawnedCubes[i].GetComponent<BoxCollider>().enabled = false;
             waku.SetActive(false);
+        }
 
-            if (RotationCheck == false)
-            {
-                RotationCheck = true;
-                rePosition = false;
-                StartCoroutine("DelayX");
-            }
+        if (RotationCheck == false)
+        {
+            RotationCheck = true;
+            rePosition = false;
+            StartCoroutine("DelayX");
+        }
+
+        for (int i = 0; i < spawnedCubes.Count; i++)
+        {
+            cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
             cubecontroller.cubePhsicsState = "falling";
         }
 

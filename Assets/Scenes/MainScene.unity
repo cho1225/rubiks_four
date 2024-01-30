@@ -5350,6 +5350,7 @@ MonoBehaviour:
   buttonReX: {fileID: 1695534916}
   buttonReZ: {fileID: 141528435}
   waku: {fileID: 63135524}
+  boardSize: 3
   spawnedCubes: []
   panels:
   - {fileID: 8803567166953701928}
