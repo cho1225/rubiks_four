@@ -130,4 +130,5 @@ MonoBehaviour:
   speed: 1
   cubeColor: red
   cubePhsicsState: falling
-  wait: 0
+  canCollision: 0
+  gamecontroller: {fileID: 0}

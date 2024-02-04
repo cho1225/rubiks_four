@@ -49,6 +49,7 @@ public class PanelController : MonoBehaviour
         {
             if (panelBoardState[PanelNumberX, PanelNumberY, gamecontroller.boardSize - 1] == 0)
             {
+                gamecontroller.activeCanvas = false;
                 // CubeƒvƒŒƒnƒu‚ðGameObjectŒ^‚ÅŽæ“¾
                 if (gamecontroller.cubeColorState == "Red")
                 {

@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
     public bool RotationCheck = false;
     public float Speed = 0.002f;
     public float Count;
+    public bool activeCanvas = false;
 
     public bool rePosition = false;
 
@@ -82,7 +83,11 @@ public class GameController : MonoBehaviour
 
         if (gameState == "Rotate" && hasRotate != true)
         {
-            canvas.SetActive(true);
+            if (!activeCanvas)
+            {
+                StartCoroutine(Delay());
+                activeCanvas = true;
+            }
         }
         else
         {
@@ -97,6 +102,12 @@ public class GameController : MonoBehaviour
         }
 
         UnInteractiveButton(preRoate);
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(2.0f);
+        canvas.SetActive(true);
     }
 
     void UnInteractiveButton(string preButton)
@@ -165,6 +176,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < spawnedCubes.Count; i++)
         {
             cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
+            cubecontroller.canCollision = false;
             spawnedCubes[i].GetComponent<BoxCollider>().enabled = false;
             waku.SetActive(false);
         }
@@ -265,18 +277,29 @@ public class GameController : MonoBehaviour
 
     public void ZRotate()
     {
+        for (int i = 0; i < panels.Count; i++)
+        {
+            panels[i].GetComponent<BoxCollider>().enabled = false;
+        }
+
         for (int i = 0; i < spawnedCubes.Count; i++)
         {
             cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
+            cubecontroller.canCollision = false;
             spawnedCubes[i].GetComponent<BoxCollider>().enabled = false;
             waku.SetActive(false);
+        }
 
-            if (RotationCheck == false)
-            {
-                RotationCheck = true;
-                rePosition = false;
-                StartCoroutine("DelayZ");
-            }
+        if (RotationCheck == false)
+        {
+            RotationCheck = true;
+            rePosition = false;
+            StartCoroutine("DelayZ");
+        }
+
+        for (int i = 0; i < spawnedCubes.Count; i++)
+        {
+            cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
             cubecontroller.cubePhsicsState = "falling";
         }
 
@@ -346,6 +369,10 @@ public class GameController : MonoBehaviour
 
         }
         RotationCheck = false;
+        for (int i = 0; i < panels.Count; i++)
+        {
+            panels[i].GetComponent<BoxCollider>().enabled = true;
+        }
         for (int i = 0; i < spawnedCubes.Count; i++)
         {
             spawnedCubes[i].GetComponent<BoxCollider>().enabled = true;
@@ -355,18 +382,29 @@ public class GameController : MonoBehaviour
 
     public void ReXRotate()
     {
+        for (int i = 0; i < panels.Count; i++)
+        {
+            panels[i].GetComponent<BoxCollider>().enabled = false;
+        }
+
         for (int i = 0; i < spawnedCubes.Count; i++)
         {
             cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
+            cubecontroller.canCollision = false;
             spawnedCubes[i].GetComponent<BoxCollider>().enabled = false;
             waku.SetActive(false);
+        }
 
-            if (RotationCheck == false)
-            {
-                RotationCheck = true;
-                rePosition = false;
-                StartCoroutine("DelayReX");
-            }
+        if (RotationCheck == false)
+        {
+            RotationCheck = true;
+            rePosition = false;
+            StartCoroutine("DelayReX");
+        }
+
+        for (int i = 0; i < spawnedCubes.Count; i++)
+        {
+            cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
             cubecontroller.cubePhsicsState = "falling";
         }
 
@@ -436,6 +474,10 @@ public class GameController : MonoBehaviour
 
         }
         RotationCheck = false;
+        for (int i = 0; i < panels.Count; i++)
+        {
+            panels[i].GetComponent<BoxCollider>().enabled = true;
+        }
         for (int i = 0; i < spawnedCubes.Count; i++)
         {
             spawnedCubes[i].GetComponent<BoxCollider>().enabled = true;
@@ -445,18 +487,29 @@ public class GameController : MonoBehaviour
 
     public void ReZRotate()
     {
+        for (int i = 0; i < panels.Count; i++)
+        {
+            panels[i].GetComponent<BoxCollider>().enabled = false;
+        }
+
         for (int i = 0; i < spawnedCubes.Count; i++)
         {
             cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
+            cubecontroller.canCollision = false;
             spawnedCubes[i].GetComponent<BoxCollider>().enabled = false;
             waku.SetActive(false);
+        }
 
-            if (RotationCheck == false)
-            {
-                RotationCheck = true;
-                rePosition = false;
-                StartCoroutine("DelayReZ");
-            }
+        if (RotationCheck == false)
+        {
+            RotationCheck = true;
+            rePosition = false;
+            StartCoroutine("DelayReZ");
+        }
+
+        for (int i = 0; i < spawnedCubes.Count; i++)
+        {
+            cubecontroller = spawnedCubes[i].GetComponent<CubeController>();
             cubecontroller.cubePhsicsState = "falling";
         }
 
@@ -526,6 +579,10 @@ public class GameController : MonoBehaviour
 
         }
         RotationCheck = false;
+        for (int i = 0; i < panels.Count; i++)
+        {
+            panels[i].GetComponent<BoxCollider>().enabled = true;
+        }
         for (int i = 0; i < spawnedCubes.Count; i++)
         {
             spawnedCubes[i].GetComponent<BoxCollider>().enabled = true;
