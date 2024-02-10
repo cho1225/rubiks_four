@@ -5,12 +5,18 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private PanelManager panelManager;
+    private CubeManager cubeManager;
     private string gameState = "CanPush";
 
     void Start()
     {
+        // パネルマネージャーをとってくる
         GameObject allPanel = GameObject.Find("AllPanel");
         panelManager = allPanel.GetComponent<PanelManager>();
+
+        // キューブマネージャーをとってくる
+        GameObject allCube = GameObject.Find("AllCube");
+        cubeManager = allCube.GetComponent<CubeManager>();
     }
 
     void Update()
@@ -19,21 +25,31 @@ public class GameManager : MonoBehaviour
         {
             if (panelManager.IsPushes())
             {
-                SetGameStateCanPush("Rotate");
+                SetGameState("Falling");
                 panelManager.SetPushes(false);
-                (float, float) result = panelManager.GetXZ();
+                cubeManager.GenerateCube(panelManager.GetXZ());
             }
             panelManager.EnabledAllPanel(gameState);
         }
 
-
-        if (Input.GetKey(KeyCode.W))
+        if (gameState == "Falling")
         {
-            SetGameStateCanPush("CanPush");
+            if (cubeManager.CheckHasFalled())
+            {
+                SetGameState("Rotate");
+            }
+        }
+
+        if (gameState == "Rotate")
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                SetGameState("CanPush");
+            }
         }
     }
 
-    void SetGameStateCanPush(string _gameState)
+    void SetGameState(string _gameState)
     {
         gameState = _gameState;
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Panel : MonoBehaviour
 {
     private Color MouseOverColor = Color.gray;      // マウスオーバー時の色
-    private Color OriginalColor;                    // オリジナルの色
+    private Color OriginalColor;                    // 元の色
     private MeshRenderer Renderer;                  // ゲームオブジェクトのRenderer
 
     private float x;
@@ -25,8 +25,6 @@ public class Panel : MonoBehaviour
         OriginalColor = Renderer.material.color;
     }
 
-    public void SetPush(bool _push) { this.push = _push; }
-
     public float GetX() { return x; }
 
     public float GetZ() { return z; }
@@ -35,6 +33,8 @@ public class Panel : MonoBehaviour
     {
         return push;
     }
+
+    public void SetPush(bool _push) { this.push = _push; }
 
     public void ResetPanel()
     {
