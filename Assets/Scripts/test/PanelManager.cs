@@ -27,14 +27,26 @@ public class PanelManager : MonoBehaviour
 
     public (float, float) GetXZ() { return (x, z); }
 
-    public void EnabledAllPanel(string gameState)
+    private void EnabledPanel(GameObject[,,] boardState)
     {
-        if (gameState == "CanPush")
+        foreach (Panel panel in panels)
         {
-            foreach (Panel panel in panels)
+            if (boardState[(int)panel.GetX() + 1, 2, (int)panel.GetZ() + 1] != null)
+            {
+                panel.GetComponent<BoxCollider>().enabled = false;
+            }
+            else
             {
                 panel.GetComponent<BoxCollider>().enabled = true;
             }
+        }
+    }
+
+    public void EnabledAllPanel(string gameState, GameObject[,,] boardState)
+    {
+        if (gameState == "CanPush")
+        {
+            EnabledPanel(boardState);
         }
         else
         {

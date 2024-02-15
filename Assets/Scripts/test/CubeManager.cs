@@ -8,7 +8,7 @@ public class CubeManager : MonoBehaviour
     private string cubeColor = "RedCube";
     private float speed = 1.0f;
 
-    public GameObject[,,] boardState = new GameObject[3, 3, 3];
+    private GameObject[,,] boardState = new GameObject[3, 3, 3];
 
     void Start()
     {
@@ -38,6 +38,8 @@ public class CubeManager : MonoBehaviour
             }
         }
     }
+
+    public GameObject[,,] GetBoardState() { return boardState; }
 
     private void SwitchCubeColor()
     {
@@ -81,9 +83,43 @@ public class CubeManager : MonoBehaviour
                 {
                     if (boardState[i, j, k] != null)
                     {
-                        boardState[i, j, k].transform.Translate(0, -speed * Time.deltaTime, 0, Space.World);
+                        if (!CheckHasFalled(i, j, k))
+                        {
+                            boardState[i, j, k].transform.Translate(0, -speed * Time.deltaTime, 0, Space.World);
+                        }
+                        else
+                        {
+                            boardState[i, j, k].transform.position = new Vector3(i - 1, j - 1, k - 1);
+                            boardState[i, j, k].GetComponent<Cube>().SetHasFalled(true);
+                        }
                     }
                 }
+            }
+        }
+    }
+
+    private bool CheckHasFalled(int i, int j, int k)
+    {
+        if (j == 0)
+        {
+            if (boardState[i, j, k].transform.position.y > -1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (boardState[i, j, k].transform.position.y - 1 > boardState[i, j - 1, k].transform.position.y)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
     }

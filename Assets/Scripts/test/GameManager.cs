@@ -23,13 +23,14 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == "CanPush")
         {
+            //panelManager.EnabledPanel(cubeManager.GetBoardState());
             if (panelManager.IsPushes())
             {
                 SetGameState("Falling");
                 panelManager.SetPushes(false);
                 cubeManager.GenerateCube(panelManager.GetXZ());
             }
-            panelManager.EnabledAllPanel(gameState);
+            panelManager.EnabledAllPanel(gameState, cubeManager.GetBoardState());
         }
 
         if (gameState == "Falling")
