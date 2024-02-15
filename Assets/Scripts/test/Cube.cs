@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool hasFalled = false;
+
+    public void SetHasFalled(bool _bool)
     {
-        
+        hasFalled = _bool;
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool GetHasFalled()
     {
-        
+        return hasFalled;
     }
 }

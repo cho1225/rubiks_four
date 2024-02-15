@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour
 
         if (gameState == "Falling")
         {
-            if (cubeManager.CheckHasFalled())
+            cubeManager.MoveCube();
+            if (cubeManager.AllHasFalled())
             {
                 SetGameState("Rotate");
             }
