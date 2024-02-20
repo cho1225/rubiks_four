@@ -5,19 +5,28 @@ using UnityEngine;
 
 public class CubeManager : MonoBehaviour
 {
-    private string cubeColor = "RedCube";
+    public string cubeColor = "GrayCube";
     private float speed = 1.0f;
 
     private GameObject[,,] boardState = new GameObject[3, 3, 3];
 
     void Start()
     {
-
+        GenerateCube(GenerateRandomPosition(), "GrayCube");
     }
 
-    public void GenerateCube((float, float) position)
+    private (float, float) GenerateRandomPosition()
     {
-        GameObject obj = (GameObject)Resources.Load(cubeColor);
+        // ランダムなインデックスを選択
+        int xRandomIndex = UnityEngine.Random.Range(-1, 2);
+        int zRandomIndex = UnityEngine.Random.Range(-1, 2);
+
+        return (xRandomIndex, zRandomIndex);
+    }
+
+    public void GenerateCube((float, float) position, string _cubeColor)
+    {
+        GameObject obj = (GameObject)Resources.Load(_cubeColor);
         // Cubeプレハブを元に、インスタンスを生成.
         GameObject newCube = Instantiate(obj);
         newCube.transform.parent = transform;
