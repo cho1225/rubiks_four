@@ -4,57 +4,89 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //public GameObject canvas;
+
     private PanelManager panelManager;
     private CubeManager cubeManager;
-    private string gameState = "Falling";
+    private UIManager uiManager;
+    private RotateManager rotateManager;
+
+    private string[] gameState = { "CanPush", "Falling", "Judge", "Rotate", "Falling", "Judge" };
+    [SerializeField]private int gameStateNumber = 4;
 
     void Start()
     {
-        // パネルマネージャーをとってくる
+        // PanelManagerをとってくる
         GameObject allPanel = GameObject.Find("AllPanel");
         panelManager = allPanel.GetComponent<PanelManager>();
 
-        // キューブマネージャーをとってくる
+        // CubeManagerをとってくる
         GameObject allCube = GameObject.Find("AllCube");
         cubeManager = allCube.GetComponent<CubeManager>();
+
+        // UIManagerをとってくる
+        GameObject uiManagerObj = GameObject.Find("UIManager");
+        uiManager = uiManagerObj.GetComponent<UIManager>();
+
+        // RotateManagerをとってくる
+        GameObject rotateManagerObj = GameObject.Find("RotateManager");
+        rotateManager = rotateManagerObj.GetComponent<RotateManager>();
     }
 
     void Update()
     {
-        if (gameState == "CanPush")
+        if (gameState[gameStateNumber] == "CanPush")
         {
-            Debug.Log(gameState);
-            //panelManager.EnabledPanel(cubeManager.GetBoardState());
             if (panelManager.IsPushes())
             {
-                SetGameState("Falling");
+                SetGameState();
                 panelManager.SetPushes(false);
                 cubeManager.GenerateCube(panelManager.GetXZ(), cubeManager.cubeColor);
             }
-            panelManager.EnabledAllPanel(gameState, cubeManager.GetBoardState());
+            panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.GetBoardState());
         }
 
-        if (gameState == "Falling")
+        if (gameState[gameStateNumber] == "Falling")
         {
-            panelManager.EnabledAllPanel(gameState, cubeManager.GetBoardState());
+            panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.GetBoardState());
+            rotateManager.SetAllHasRotate(false);
             cubeManager.MoveCube();
             if (cubeManager.AllHasFalled())
             {
-                SetGameState("Rotate");
+                SetGameState();
             }
         }
 
-        if (gameState == "Rotate")
+        if (gameState[gameStateNumber] == "Rotate")
+        {
+            uiManager.SetInteractiveButton(rotateManager.GetPreRotate());
+            uiManager.SetBottunActive(true);
+            if (rotateManager.GetHasRotated())
+            {
+                uiManager.SetWakuActive(false);
+                cubeManager.ResetAllCube();
+                cubeManager.SetBoardState(rotateManager.Rotate(rotateManager.GetDirection(), cubeManager.GetBoardState()));
+                rotateManager.SetHasRotated(false);
+            }
+            if (rotateManager.GetAllHasRotate())
+            {
+                uiManager.SetWakuActive(true);
+                uiManager.SetBottunActive(false);
+                SetGameState();
+            }
+        }
+
+        if (gameState[gameStateNumber] == "Judge")
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                SetGameState("CanPush");
+                SetGameState();
             }
         }
     }
 
-    void SetGameState(string _gameState)
+    void SetGameState()
     {
-        gameState = _gameState;
+        gameStateNumber = (gameStateNumber + 1) % 6;
     }
 }

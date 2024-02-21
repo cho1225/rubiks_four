@@ -31,12 +31,12 @@ public class CubeManager : MonoBehaviour
         GameObject newCube = Instantiate(obj);
         newCube.transform.parent = transform;
         newCube.transform.position = new Vector3(position.Item1, 1, position.Item2);
-        SetBoardState(position, newCube);
+        SetCubeOnBoard(position, newCube);
 
         SwitchCubeColor();
     }
 
-    private void SetBoardState((float, float) position, GameObject newCube)
+    private void SetCubeOnBoard((float, float) position, GameObject newCube)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -46,6 +46,11 @@ public class CubeManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void SetBoardState(GameObject[,,] _boardState) 
+    {
+        boardState = _boardState;
     }
 
     public GameObject[,,] GetBoardState() { return boardState; }
@@ -80,6 +85,23 @@ public class CubeManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void ResetAllCube()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    if (boardState[i, j, k] != null)
+                    {
+                        boardState[i, j, k].GetComponent<Cube>().SetHasFalled(false);
+                    }
+                }
+            }
+        }
     }
 
     public void MoveCube()

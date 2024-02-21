@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    private bool hasFalled = false;
+    [SerializeField]private bool hasFalled = false;
 
     public void SetHasFalled(bool _bool)
     {
