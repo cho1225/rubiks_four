@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //public GameObject canvas;
-
     private PanelManager panelManager;
     private CubeManager cubeManager;
     private UIManager uiManager;
     private RotateManager rotateManager;
+    private JudgeManager judgeManager;
 
     private string[] gameState = { "CanPush", "Falling", "Judge", "Rotate", "Falling", "Judge" };
-    [SerializeField]private int gameStateNumber = 4;
+    private int gameStateNumber = 4;
+
+    public static int winner = 0;
+    public static int[,,] resultBoardState = new int[3, 3, 3];
 
     void Start()
     {
@@ -31,12 +33,19 @@ public class GameManager : MonoBehaviour
         // RotateManager‚ð‚Æ‚Á‚Ä‚­‚é
         GameObject rotateManagerObj = GameObject.Find("RotateManager");
         rotateManager = rotateManagerObj.GetComponent<RotateManager>();
+
+        // JudgeManager‚ð‚Æ‚Á‚Ä‚­‚é
+        GameObject judgeManagerObj = GameObject.Find("JudgeManager");
+        judgeManager = judgeManagerObj.GetComponent<JudgeManager>();
+
+        InitializeResult();
     }
 
     void Update()
     {
         if (gameState[gameStateNumber] == "CanPush")
         {
+            judgeManager.SetHasJudge();
             if (panelManager.IsPushes())
             {
                 SetGameState();
@@ -59,6 +68,7 @@ public class GameManager : MonoBehaviour
 
         if (gameState[gameStateNumber] == "Rotate")
         {
+            judgeManager.SetHasJudge();
             uiManager.SetInteractiveButton(rotateManager.GetPreRotate());
             uiManager.SetBottunActive(true);
             if (rotateManager.GetHasRotated())
@@ -78,14 +88,73 @@ public class GameManager : MonoBehaviour
 
         if (gameState[gameStateNumber] == "Judge")
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (judgeManager.CheckWinner(cubeManager.GetBoardState()) != "done") 
+            {   
+                SetResult(cubeManager.GetBoardState());
+                Debug.Log(winner);
+                this.GetComponent<ChangeScene>().Load("ResultScene");
+            }
+            else
             {
                 SetGameState();
             }
         }
     }
 
-    void SetGameState()
+    private void InitializeResult()
+    {
+        winner = 0;
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    resultBoardState[i, j, k] = 0;
+                }
+            }
+        }
+    }
+
+    private void SetResult(GameObject[,,] boardState)
+    {
+        if (judgeManager.CheckWinner(boardState) == "red")
+        {
+            winner = 1;
+        }
+        else if (judgeManager.CheckWinner(boardState) == "blue")
+        {
+            winner = 2;
+        }
+
+        for (int i = 0;i < 3;i++)
+        {
+            for (int j=0;j < 3;j++)
+            {
+                for (int k = 0;k < 3;k++)
+                {
+                    if (boardState[i,j,k])
+                    {
+                        if (boardState[i,j,k].CompareTag("Red"))
+                        {
+                            resultBoardState[i, j, k] = 1;
+                        }
+                        else if (boardState[i, j, k].CompareTag("Blue"))
+                        {
+                            resultBoardState[i, j, k] = 2;
+                        }
+                        else if (boardState[i, j, k].CompareTag("Gray"))
+                        {
+                            resultBoardState[i, j, k] = 3;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void SetGameState()
     {
         gameStateNumber = (gameStateNumber + 1) % 6;
     }

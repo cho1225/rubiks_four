@@ -26,7 +26,7 @@ public class RotateManager : MonoBehaviour
 
     public void SetAllHasRotate(bool _bool) { allHasRotate = _bool; }
 
-    public bool GetAllHasRotate() { return allHasRotate; }
+    public bool GetAllHasRotate() { return allHasRotate; } 
 
     public GameObject[,,] Rotate(string _direction, GameObject[,,] boardState)
     {
