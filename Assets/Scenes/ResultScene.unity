@@ -742,7 +742,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MainScene_test
+          m_StringArgument: MainScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1039421836
@@ -1076,11 +1076,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271267be7363bee47aa7954f903e5c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  result: 0
   resultParentObject: {fileID: 1375688153}
-  mainImage: {fileID: 1328990170}
+  mainImage: {fileID: 1328990172}
   redWinSpr: {fileID: 21300000, guid: 07a4e9625f789984e8864f832f661697, type: 3}
   blueWinSpr: {fileID: 21300000, guid: 9ef88fb45b0829646b8b3dc4d9210366, type: 3}
+  ResultGrayCube: {fileID: 5822549069855671531, guid: 8d11178ca69ba9a4f9414812360d95f9, type: 3}
+  ResultRedCube: {fileID: 6110424892192099765, guid: 91cccc413f65fd044be4957ae0cba7cf, type: 3}
+  ResultBlueCube: {fileID: 8296783526955889488, guid: 0ec486f77e9c1d94a930b87f63a3fa92, type: 3}
 --- !u!1 &1484335618
 GameObject:
   m_ObjectHideFlags: 0

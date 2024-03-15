@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartCubeController : MonoBehaviour
+public class TitleManager : MonoBehaviour
 {
 
-    // Update is called once per frame
+    // タイトルシーンのキューブを回転
     void Update()
     {
         transform.Rotate(new Vector3(-7, -3, 5) * Time.deltaTime);

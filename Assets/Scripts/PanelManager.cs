@@ -7,13 +7,7 @@ public class PanelManager : MonoBehaviour
     private float x;
     private float z;
     private bool pushes;
-    Panel[] panels;
-
-    void Start()
-    {
-        // パネルの情報をセット
-        panels = GetComponentsInChildren<Panel>();
-    }
+    [SerializeField] Panel[] panels;
 
     public void SetPushes(bool _pushes)
     {

@@ -6,7 +6,6 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     private bool hasFalled = false;
-    public string cubeColor;
 
     public void SetHasFalled(bool _bool)
     {
@@ -17,6 +16,4 @@ public class Cube : MonoBehaviour
     {
         return hasFalled;
     }
-
-    public string GetCubeColor() { return cubeColor; }
 }

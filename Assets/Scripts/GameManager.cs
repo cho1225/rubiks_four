@@ -9,16 +9,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private RotateManager rotateManager;
     [SerializeField] private JudgeManager judgeManager;
+    [SerializeField] private ChangeScene changeScene;
+    private Result result;
 
     private string[] gameState = { "CanPush", "Falling", "Judge", "Rotate", "Falling", "Judge" };
     private int gameStateNumber = 4;
 
-    public static int winner = 0;
-    public static int[,,] resultBoardState = new int[3, 3, 3];
-
     void Start()
     {
-        InitializeResult();
+        result = GameObject.Find("Result").GetComponent<Result>();
+        result.InitializeResult();
     }
 
     void Update()
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
             {
                 SetGameState();
                 panelManager.SetPushes(false);
-                cubeManager.GenerateCube(panelManager.GetXZ(), cubeManager.cubeColor);
+                cubeManager.GenerateCube(panelManager.GetXZ(), cubeManager.GetCubeColorIndex());
             }
             panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.GetBoardState());
         }
@@ -70,66 +70,12 @@ public class GameManager : MonoBehaviour
         {
             if (judgeManager.CheckWinner(cubeManager.GetBoardState()) != "done") 
             {   
-                SetResult(cubeManager.GetBoardState());
-                Debug.Log(winner);
-                this.GetComponent<ChangeScene>().Load("ResultScene");
+                result.SetResult(cubeManager.GetBoardState(), judgeManager.CheckWinner(cubeManager.GetBoardState()));
+                changeScene.Load("ResultScene");
             }
             else
             {
                 SetGameState();
-            }
-        }
-    }
-
-    private void InitializeResult()
-    {
-        winner = 0;
-
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 3; k++)
-                {
-                    resultBoardState[i, j, k] = 0;
-                }
-            }
-        }
-    }
-
-    private void SetResult(GameObject[,,] boardState)
-    {
-        if (judgeManager.CheckWinner(boardState) == "red")
-        {
-            winner = 1;
-        }
-        else if (judgeManager.CheckWinner(boardState) == "blue")
-        {
-            winner = 2;
-        }
-
-        for (int i = 0;i < 3;i++)
-        {
-            for (int j=0;j < 3;j++)
-            {
-                for (int k = 0;k < 3;k++)
-                {
-                    if (boardState[i,j,k])
-                    {
-                        if (boardState[i,j,k].CompareTag("Red"))
-                        {
-                            resultBoardState[i, j, k] = 1;
-                        }
-                        else if (boardState[i, j, k].CompareTag("Blue"))
-                        {
-                            resultBoardState[i, j, k] = 2;
-                        }
-                        else if (boardState[i, j, k].CompareTag("Gray"))
-                        {
-                            resultBoardState[i, j, k] = 3;
-                        }
-                    }
-                }
             }
         }
     }

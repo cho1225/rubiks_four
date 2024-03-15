@@ -6,18 +6,19 @@ using UnityEngine.UI;
 
 public class ChangeScene : MonoBehaviour
 {
+    // 特定のシーンへ移動
     public void Load(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    //ゲーム終了:ボタンから呼び出す
+    // ゲーム終了
     public void EndGame()
     {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+        UnityEditor.EditorApplication.isPlaying = false;// ゲームプレイ終了
 #else
-        Application.Quit();//ゲームプレイ終了
+        Application.Quit();// ゲームプレイ終了
 #endif
     }
 }

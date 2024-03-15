@@ -9,7 +9,7 @@ public class RotateManager : MonoBehaviour
     private string preRotate = "no";
     public string direction = "no";
     private bool rotationCheck = false;
-    [SerializeField] private bool allHasRotate = false;
+    private bool allHasRotate = false;
 
     private float count;
     private float speed = 1;

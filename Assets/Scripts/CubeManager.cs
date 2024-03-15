@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CubeManager : MonoBehaviour
 {
-    public int cubeColor = 0;
+    private int cubeColorIndex = 0;
     private float speed = 1.0f;
 
     private GameObject[,,] boardState = new GameObject[3, 3, 3];
@@ -14,7 +14,7 @@ public class CubeManager : MonoBehaviour
 
     void Start()
     {
-        GenerateCube(GenerateRandomPosition(), cubeColor);
+        GenerateCube(GenerateRandomPosition(), cubeColorIndex);
     }
 
     private (float, float) GenerateRandomPosition()
@@ -29,7 +29,7 @@ public class CubeManager : MonoBehaviour
     public void GenerateCube((float, float) position, int _cubeColor)
     {
         GameObject obj = Cubes[_cubeColor];
-        // Cubeプレハブを元に、インスタンスを生成.
+        // Cubeプレハブを元に、インスタンスを生成
         GameObject newCube = Instantiate(obj);
         newCube.transform.parent = transform;
         newCube.transform.position = new Vector3(position.Item1, 1, position.Item2);
@@ -57,14 +57,16 @@ public class CubeManager : MonoBehaviour
 
     public GameObject[,,] GetBoardState() { return boardState; }
 
+    public int GetCubeColorIndex() { return cubeColorIndex; }
+
     private void SwitchCubeColor()
     {
-        if (cubeColor == 1)
+        if (cubeColorIndex == 1)
         {
-            this.cubeColor = 2;
+            this.cubeColorIndex = 2;
         }
         else {
-            this.cubeColor = 1;
+            this.cubeColorIndex = 1;
         }
     }
 
