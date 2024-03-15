@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private PanelManager panelManager;
-    private CubeManager cubeManager;
-    private UIManager uiManager;
-    private RotateManager rotateManager;
-    private JudgeManager judgeManager;
+    [SerializeField] private PanelManager panelManager;
+    [SerializeField] private CubeManager cubeManager;
+    [SerializeField] private UIManager uiManager;
+    [SerializeField] private RotateManager rotateManager;
+    [SerializeField] private JudgeManager judgeManager;
 
     private string[] gameState = { "CanPush", "Falling", "Judge", "Rotate", "Falling", "Judge" };
     private int gameStateNumber = 4;
@@ -18,26 +18,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // PanelManager‚ð‚Æ‚Á‚Ä‚­‚é
-        GameObject allPanel = GameObject.Find("AllPanel");
-        panelManager = allPanel.GetComponent<PanelManager>();
-
-        // CubeManager‚ð‚Æ‚Á‚Ä‚­‚é
-        GameObject allCube = GameObject.Find("AllCube");
-        cubeManager = allCube.GetComponent<CubeManager>();
-
-        // UIManager‚ð‚Æ‚Á‚Ä‚­‚é
-        GameObject uiManagerObj = GameObject.Find("UIManager");
-        uiManager = uiManagerObj.GetComponent<UIManager>();
-
-        // RotateManager‚ð‚Æ‚Á‚Ä‚­‚é
-        GameObject rotateManagerObj = GameObject.Find("RotateManager");
-        rotateManager = rotateManagerObj.GetComponent<RotateManager>();
-
-        // JudgeManager‚ð‚Æ‚Á‚Ä‚­‚é
-        GameObject judgeManagerObj = GameObject.Find("JudgeManager");
-        judgeManager = judgeManagerObj.GetComponent<JudgeManager>();
-
         InitializeResult();
     }
 
