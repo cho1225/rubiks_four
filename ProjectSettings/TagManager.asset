@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Cube
   - Canvas
+  - Red
+  - Blue
+  - Gray
   layers:
   - Default
   - TransparentFX
