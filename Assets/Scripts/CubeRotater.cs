@@ -3,35 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class RotateManager : MonoBehaviour
+public class CubeRotater : MonoBehaviour
 {
-    private bool hasRotated = false;
-    private string preRotate = "no";
-    public string direction = "no";
+    private bool isRotated = false;
+    private string preRotate = "none";
+    public string direction = "none";
     private bool rotationCheck = false;
-    private bool allHasRotate = false;
+    private bool hasRotated = false;
 
     private float count;
     private float speed = 1;
 
-    public void SetHasRotated(bool _hasRotated) { hasRotated = _hasRotated; }
+    public bool IsRotated 
+    {
+        get { return isRotated; }
+        set { isRotated = value; }
+    }
 
-    public bool GetHasRotated() { return hasRotated; }
+    public string PreRotate { get { return preRotate; } }
 
-    public string GetPreRotate() { return preRotate; }
+    public string Direction 
+    {
+        get { return direction; }
+        set { direction = value; }
+    }
 
-    public void SetDirection(string _direction) {  direction = _direction; }
+    public bool HasRotated 
+    { 
+        get { return hasRotated; } 
+        set { hasRotated = value; }
+    } 
 
-    public string GetDirection() { return direction; }
-
-    public void SetAllHasRotate(bool _bool) { allHasRotate = _bool; }
-
-    public bool GetAllHasRotate() { return allHasRotate; } 
-
-    public GameObject[,,] Rotate(string _direction, GameObject[,,] boardState)
+    public CubeFaller[,,] Rotate(string _direction, CubeFaller[,,] boardState)
     {
         preRotate = _direction;
-        hasRotated = true;
+        isRotated = true;
 
         if (rotationCheck == false)
         {
@@ -42,7 +48,7 @@ public class RotateManager : MonoBehaviour
         return RotateBoardState(_direction, boardState);
     }
 
-    IEnumerator Delay(string _direction, GameObject[,,] boardState)
+    IEnumerator Delay(string _direction, CubeFaller[,,] boardState)
     {
         count = 90 / speed;
 
@@ -80,12 +86,12 @@ public class RotateManager : MonoBehaviour
             }
         }
         rotationCheck = false;
-        allHasRotate = true;
+        hasRotated = true;
     }
 
-    private GameObject[,,] RotateBoardState(string _direction, GameObject[,,] boardState)
+    private CubeFaller[,,] RotateBoardState(string _direction, CubeFaller[,,] boardState)
     {
-        GameObject[,,] rotatedBoardState = new GameObject[3, 3, 3];
+        CubeFaller[,,] rotatedBoardState = new CubeFaller[3, 3, 3];
 
         //”»’è‚Ì”z—ñ‚ð‰ñ“]
         for (int i = 0; i < 3; i++)

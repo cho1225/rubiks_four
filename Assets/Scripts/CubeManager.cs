@@ -5,16 +5,21 @@ using UnityEngine;
 
 public class CubeManager : MonoBehaviour
 {
-    private int cubeColorIndex = 0;
-    private float speed = 1.0f;
-
-    private GameObject[,,] boardState = new GameObject[3, 3, 3];
-
+    private CubeFaller[,,] boardState = new CubeFaller[3, 3, 3];
+    [SerializeField] private CubeRotater cubeRotater;
     [SerializeField] private GameObject[] Cubes;
+
+    private int nextCubeColorIndex = 0;
 
     void Start()
     {
-        GenerateCube(GenerateRandomPosition(), cubeColorIndex);
+        GenerateCube(GenerateRandomPosition(), nextCubeColorIndex);
+    }
+
+    public CubeFaller[,,] BoardState
+    {
+        get { return boardState; }
+        set { boardState = value; }
     }
 
     private (float, float) GenerateRandomPosition()
@@ -29,7 +34,6 @@ public class CubeManager : MonoBehaviour
     public void GenerateCube((float, float) position, int _cubeColor)
     {
         GameObject obj = Cubes[_cubeColor];
-        // Cubeプレハブを元に、インスタンスを生成
         GameObject newCube = Instantiate(obj);
         newCube.transform.parent = transform;
         newCube.transform.position = new Vector3(position.Item1, 1, position.Item2);
@@ -44,29 +48,47 @@ public class CubeManager : MonoBehaviour
         {
             if (boardState[(int)position.Item1 + 1, i, (int)position.Item2 + 1] == null)
             {
-                boardState[(int)position.Item1 + 1, i, (int)position.Item2 + 1] = newCube;
+                boardState[(int)position.Item1 + 1, i, (int)position.Item2 + 1] = newCube.GetComponent<CubeFaller>();
                 return;
             }
         }
     }
 
-    public void SetBoardState(GameObject[,,] _boardState) 
-    {
-        boardState = _boardState;
-    }
-
-    public GameObject[,,] GetBoardState() { return boardState; }
-
-    public int GetCubeColorIndex() { return cubeColorIndex; }
+    public int NextCubeColorIndex { get { return nextCubeColorIndex; } }
 
     private void SwitchCubeColor()
     {
-        if (cubeColorIndex == 1)
+        if (nextCubeColorIndex == 1)
         {
-            this.cubeColorIndex = 2;
+            this.nextCubeColorIndex = 2;
         }
         else {
-            this.cubeColorIndex = 1;
+            this.nextCubeColorIndex = 1;
+        }
+    }
+
+    public void FallAllCube()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                for (int k = 0; k < 3; k++)
+                {
+                    if (boardState[i, j, k] != null)
+                    {
+                        if (!boardState[i, j, k].CheckHasFalled(BoardState, i, j, k))
+                        {
+                            boardState[i, j, k].FallCube();
+                        }
+                        else
+                        {
+                            boardState[i, j, k].transform.position = new Vector3(i - 1, j - 1, k - 1);
+                            boardState[i, j, k].HasFalled = true;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -80,7 +102,7 @@ public class CubeManager : MonoBehaviour
                 {
                     if (boardState[i, j, k] != null)
                     {
-                        if (!boardState[i, j, k].GetComponent<Cube>().GetHasFalled())
+                        if (!boardState[i, j, k].HasFalled)
                         {
                             return false;
                         }
@@ -101,61 +123,12 @@ public class CubeManager : MonoBehaviour
                 {
                     if (boardState[i, j, k] != null)
                     {
-                        boardState[i, j, k].GetComponent<Cube>().SetHasFalled(false);
+                        boardState[i, j, k].HasFalled = false;
                     }
                 }
             }
         }
     }
 
-    public void MoveCube()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            for(int j = 0; j < 3; j++)
-            {
-                for(int k = 0; k < 3; k++)
-                {
-                    if (boardState[i, j, k] != null)
-                    {
-                        if (!CheckHasFalled(i, j, k))
-                        {
-                            boardState[i, j, k].transform.Translate(0, -speed * Time.deltaTime, 0, Space.World);
-                        }
-                        else
-                        {
-                            boardState[i, j, k].transform.position = new Vector3(i - 1, j - 1, k - 1);
-                            boardState[i, j, k].GetComponent<Cube>().SetHasFalled(true);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private bool CheckHasFalled(int i, int j, int k)
-    {
-        if (j == 0)
-        {
-            if (boardState[i, j, k].transform.position.y > -1)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-        else
-        {
-            if (boardState[i, j, k].transform.position.y - 1 > boardState[i, j - 1, k].transform.position.y)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-    }
+    public CubeRotater CubeRotater { get { return cubeRotater; } }
 }

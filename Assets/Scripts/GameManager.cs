@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PanelManager panelManager;
     [SerializeField] private CubeManager cubeManager;
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private RotateManager rotateManager;
     [SerializeField] private JudgeManager judgeManager;
     [SerializeField] private ChangeScene changeScene;
     private Result result;
@@ -25,21 +24,21 @@ public class GameManager : MonoBehaviour
     {
         if (gameState[gameStateNumber] == "CanPush")
         {
-            judgeManager.SetHasJudge();
+            judgeManager.HasJudge = false;
             if (panelManager.IsPushes())
             {
                 SetGameState();
-                panelManager.SetPushes(false);
-                cubeManager.GenerateCube(panelManager.GetXZ(), cubeManager.GetCubeColorIndex());
+                panelManager.SetPushes();
+                cubeManager.GenerateCube(panelManager.XZ, cubeManager.NextCubeColorIndex);
             }
-            panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.GetBoardState());
+            panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.BoardState);
         }
 
         if (gameState[gameStateNumber] == "Falling")
         {
-            panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.GetBoardState());
-            rotateManager.SetAllHasRotate(false);
-            cubeManager.MoveCube();
+            panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.BoardState);
+            cubeManager.CubeRotater.HasRotated = false;
+            cubeManager.FallAllCube();
             if (cubeManager.AllHasFalled())
             {
                 SetGameState();
@@ -48,17 +47,17 @@ public class GameManager : MonoBehaviour
 
         if (gameState[gameStateNumber] == "Rotate")
         {
-            judgeManager.SetHasJudge();
-            uiManager.SetInteractiveButton(rotateManager.GetPreRotate());
+            judgeManager.HasJudge = false;
+            uiManager.SetInteractiveButton(cubeManager.CubeRotater.PreRotate);
             uiManager.SetBottunActive(true);
-            if (rotateManager.GetHasRotated())
+            if (cubeManager.CubeRotater.IsRotated)
             {
                 uiManager.SetWakuActive(false);
                 cubeManager.ResetAllCube();
-                cubeManager.SetBoardState(rotateManager.Rotate(rotateManager.GetDirection(), cubeManager.GetBoardState()));
-                rotateManager.SetHasRotated(false);
+                cubeManager.BoardState = cubeManager.CubeRotater.Rotate(cubeManager.CubeRotater.Direction, cubeManager.BoardState);
+                cubeManager.CubeRotater.IsRotated = false;
             }
-            if (rotateManager.GetAllHasRotate())
+            if (cubeManager.CubeRotater.HasRotated)
             {
                 uiManager.SetWakuActive(true);
                 uiManager.SetBottunActive(false);
@@ -68,9 +67,9 @@ public class GameManager : MonoBehaviour
 
         if (gameState[gameStateNumber] == "Judge")
         {
-            if (judgeManager.CheckWinner(cubeManager.GetBoardState()) != "done") 
+            if (judgeManager.CheckWinner(cubeManager.BoardState) != "done") 
             {   
-                result.SetResult(cubeManager.GetBoardState(), judgeManager.CheckWinner(cubeManager.GetBoardState()));
+                result.SetResult(cubeManager.BoardState, judgeManager.CheckWinner(cubeManager.BoardState));
                 changeScene.Load("ResultScene");
             }
             else

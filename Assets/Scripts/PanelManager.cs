@@ -9,9 +9,10 @@ public class PanelManager : MonoBehaviour
     private bool pushes;
     [SerializeField] Panel[] panels;
 
-    public void SetPushes(bool _pushes)
+    // ˆø”‚Í“n‚·‚×‚«H
+    public void SetPushes()
     {
-        this.pushes = _pushes;
+        this.pushes = false;
         for (int i = 0; i < panels.Length; i++)
         {
             panels[i].ResetPanel();
@@ -19,34 +20,29 @@ public class PanelManager : MonoBehaviour
 
     }
 
-    public (float, float) GetXZ() { return (x, z); }
+    public (float, float) XZ { get { return (x, z); } }
 
-    private void EnabledPanel(GameObject[,,] boardState)
-    {
-        foreach (Panel panel in panels)
-        {
-            if (boardState[(int)panel.GetX() + 1, 2, (int)panel.GetZ() + 1] != null)
-            {
-                panel.GetComponent<BoxCollider>().enabled = false;
-            }
-            else
-            {
-                panel.GetComponent<BoxCollider>().enabled = true;
-            }
-        }
-    }
-
-    public void EnabledAllPanel(string gameState, GameObject[,,] boardState)
+    public void EnabledAllPanel(string gameState, CubeFaller[,,] boardState)
     {
         if (gameState == "CanPush")
         {
-            EnabledPanel(boardState);
+            foreach (Panel panel in panels)
+            {
+                if (boardState[(int)panel.X + 1, 2, (int)panel.Z + 1] != null)
+                {
+                    panel.SetEnabledPanel(false);
+                }
+                else
+                {
+                    panel.SetEnabledPanel(true);
+                }
+            }
         }
         else
         {
             foreach (Panel panel in panels)
             {
-                panel.GetComponent<BoxCollider>().enabled = false;
+                panel.SetEnabledPanel(false);
             }
         }
     }
@@ -55,14 +51,13 @@ public class PanelManager : MonoBehaviour
     {
         for (int i = 0; i < panels.Length; i++)
         {
-            if (panels[i].GetPush())
+            if (panels[i].Push)
             {
-                x = panels[i].GetX();
-                z = panels[i].GetZ();
+                x = panels[i].X;
+                z = panels[i].Z;
                 pushes = true;
             }
         }
-
         return pushes;
     }
 }

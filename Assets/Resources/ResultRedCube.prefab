@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1060663238493453124}
   - component: {fileID: 3779585329815574219}
   - component: {fileID: 6504547056694077058}
-  - component: {fileID: -4443389207270886172}
   m_Layer: 0
   m_Name: ResultRedCube
   m_TagString: Red
@@ -84,16 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-4443389207270886172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6110424892192099765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a7987bba511a1b48b1c829e3f879fdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasFalled: 0

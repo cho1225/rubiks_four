@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Panel : MonoBehaviour
 {
-    private Color MouseOverColor = Color.gray;      // マウスオーバー時の色
-    private Color OriginalColor;                    // 元の色
-    private MeshRenderer Renderer;                  // ゲームオブジェクトのRenderer
+    private Color mouseOverColor = Color.gray;      // マウスオーバー時の色
+    private Color originalColor;                    // 元の色
+    private MeshRenderer meshRenderer;              // ゲームオブジェクトのRenderer
+    private BoxCollider boxCollider;
 
     private float x;
     private float z;
@@ -20,43 +21,36 @@ public class Panel : MonoBehaviour
         push = false;
 
         // Rendererコンポーネントをとってくる
-        Renderer = GetComponent<MeshRenderer>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        // Colliderコンポーネントをとってくる
+        boxCollider = GetComponent<BoxCollider>();
         // オリジナルの色をとってくる
-        OriginalColor = Renderer.material.color;
+        originalColor = meshRenderer.material.color;
     }
 
-    public float GetX() { return x; }
+    // プロパティはどちらも実装するべき？
+    public float X { get { return x; } }
 
-    public float GetZ() { return z; }
+    public float Z { get { return z; } }
 
-    public bool GetPush()
-    {
-        return push;
+    public bool Push 
+    { 
+        get { return push; } 
+        set { push = value; }
     }
 
-    public void SetPush(bool _push) { this.push = _push; }
+    public void SetEnabledPanel(bool _bool) { boxCollider.enabled = _bool; }
 
     public void ResetPanel()
     {
-        SetPush(false);
-        Renderer.material.color = OriginalColor;
+        Push = false;
+        meshRenderer.material.color = originalColor;
 
     }
 
-    public void OnClick()
-    {
-        SetPush(true);
-    }
+    public void OnClick() { Push = true; }
 
-    void OnMouseOver()
-    {
-        // マウスオーバー時に色を変える
-        Renderer.material.color = MouseOverColor;
-    }
+    void OnMouseOver() { meshRenderer.material.color = mouseOverColor; }
 
-    void OnMouseExit()
-    {
-        // オリジナルの色に戻す
-        Renderer.material.color = OriginalColor;
-    }
+    void OnMouseExit() { meshRenderer.material.color = originalColor; }
 }

@@ -51,7 +51,7 @@ public class ResultManager : MonoBehaviour
                         GameObject newCube = Instantiate(ResultBlueCube, resultParentObject.transform);
                         newCube.transform.position = new Vector3(i - 1, j - 1, k - 1);
                     }
-                    else if (result.GetResultBoardState()[i, j, k] == 3)
+                    else if (result.GetResultBoardState()[i, j, k] == 0)
                     {
                         GameObject newCube = Instantiate(ResultGrayCube, resultParentObject.transform);
                         newCube.transform.position = new Vector3(i - 1, j - 1, k - 1);

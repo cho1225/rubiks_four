@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4737679287885220203}
   - component: {fileID: 6173714190243485582}
   - component: {fileID: 1959949151141623234}
-  - component: {fileID: 7804028720806215824}
   m_Layer: 0
   m_Name: ResultBlueCube
   m_TagString: Blue
@@ -84,16 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7804028720806215824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8296783526955889488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a7987bba511a1b48b1c829e3f879fdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasFalled: 0

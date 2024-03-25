@@ -30,13 +30,13 @@ public class Result : MonoBehaviour
             {
                 for (int k = 0; k < 3; k++)
                 {
-                    resultBoardState[i, j, k] = 0;
+                    resultBoardState[i, j, k] = 9;
                 }
             }
         }
     }
 
-    public void SetResult(GameObject[,,] boardState, string judge)
+    public void SetResult(CubeFaller[,,] boardState, string judge)
     {
         if (judge == "red")
         {
@@ -55,17 +55,17 @@ public class Result : MonoBehaviour
                 {
                     if (boardState[i, j, k])
                     {
-                        if (boardState[i, j, k].CompareTag("Red"))
+                        if (boardState[i, j, k].CubeColorIndex == 1)
                         {
                             resultBoardState[i, j, k] = 1;
                         }
-                        else if (boardState[i, j, k].CompareTag("Blue"))
+                        else if (boardState[i, j, k].CubeColorIndex == 2)
                         {
                             resultBoardState[i, j, k] = 2;
                         }
-                        else if (boardState[i, j, k].CompareTag("Gray"))
+                        else if (boardState[i, j, k].CubeColorIndex == 0)
                         {
-                            resultBoardState[i, j, k] = 3;
+                            resultBoardState[i, j, k] = 0;
                         }
                     }
                 }

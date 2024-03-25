@@ -23,14 +23,15 @@ public class JudgeManager : MonoBehaviour
     };
     private bool hasJudge = false;
 
-    public void SetHasJudge()
+    public bool HasJudge
     {
-        hasJudge = false;
+        get { return hasJudge; }
+        set { hasJudge = value; }
     }
 
-    public string CheckWinner(GameObject[,,] boardState)
+    public string CheckWinner(CubeFaller[,,] boardState)
     {
-        if (!hasJudge)
+        if (!HasJudge)
         {
             foreach (Vector3 direction in directions)
             {
@@ -44,16 +45,16 @@ public class JudgeManager : MonoBehaviour
                             if (boardState[i, j, k] != null)
                             {
                                 // 現在のセルがプレイヤーの識別子と一致している場合、連続しているかどうかを確認
-                                if (boardState[i, j, k].CompareTag("Red"))
+                                if (boardState[i, j, k].CubeColorIndex == 1)
                                 {
-                                    if (CheckDirection(i, j, k, "Red", direction, boardState))
+                                    if (CheckDirection(i, j, k, 1, direction, boardState))
                                     {
                                         return "red";
                                     }
                                 }
-                                if (boardState[i, j, k].CompareTag("Blue"))
+                                if (boardState[i, j, k].CubeColorIndex == 2)
                                 {
-                                    if (CheckDirection(i, j, k, "Blue", direction, boardState))
+                                    if (CheckDirection(i, j, k, 2, direction, boardState))
                                     {
                                         return "blue";
                                     }
@@ -64,12 +65,12 @@ public class JudgeManager : MonoBehaviour
                 }
             }
         }
-        hasJudge = true;
+        HasJudge = true;
         return "done";
     }
 
     // 特定の方向で3つの連続したセルが揃っているかどうかを確認
-    private bool CheckDirection(int startX, int startY, int startZ, string player, Vector3 direction, GameObject[,,] boardState)
+    private bool CheckDirection(int startX, int startY, int startZ, int player, Vector3 direction, CubeFaller[,,] boardState)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -90,7 +91,7 @@ public class JudgeManager : MonoBehaviour
             }
             else
             {
-                if (!boardState[x, y, z].CompareTag(player))
+                if (boardState[x, y, z].CubeColorIndex != player)
                 {
                     return false;
                 }
