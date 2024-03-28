@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class Result : MonoBehaviour
 {
+    // ゲームの勝者
     private int winner;
+    // ゲーム終了後のBoardState
     private int[,,] resultBoardState = new int[3, 3, 3];
 
+    // DontDestroyOnLoadの設定
     void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Result");
@@ -20,6 +23,15 @@ public class Result : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    //------------各プロパティ
+
+    public int[,,] ResultBoardState { get { return resultBoardState; } }
+
+    public int Winner { get { return winner; } }
+
+    //------------
+
+    // リザルトの初期化
     public void InitializeResult()
     {
         winner = 0;
@@ -36,6 +48,7 @@ public class Result : MonoBehaviour
         }
     }
 
+    // ゲームのリザルトをセット
     public void SetResult(CubeFaller[,,] boardState, string judge)
     {
         if (judge == "red")
@@ -72,8 +85,4 @@ public class Result : MonoBehaviour
             }
         }
     }
-
-    public int[,,] GetResultBoardState() { return resultBoardState; }
-
-    public int GetWinner() { return winner; }
 }

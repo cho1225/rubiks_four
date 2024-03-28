@@ -5,14 +5,20 @@ using UnityEngine.UIElements;
 
 public class CubeRotater : MonoBehaviour
 {
+    // ‰ñ“]ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©
     private bool isRotated = false;
+    // ‚Ğ‚Æ‚Â‘O‚É‰ñ“]‚µ‚½•ûŒü
     private string preRotate = "none";
+    // ‰ñ“]•ûŒü
     public string direction = "none";
+    // ‰ñ“]’†‚©‚Ç‚¤‚©
     private bool rotationCheck = false;
+    // ‰ñ“]Ï‚İ‚©‚Ç‚¤‚©
     private bool hasRotated = false;
-
-    private float count;
+    // ‰ñ“]‘¬“x
     private float speed = 1;
+
+    //------------ŠeƒvƒƒpƒeƒB
 
     public bool IsRotated 
     {
@@ -32,9 +38,12 @@ public class CubeRotater : MonoBehaviour
     { 
         get { return hasRotated; } 
         set { hasRotated = value; }
-    } 
+    }
 
-    public CubeFaller[,,] Rotate(string _direction, CubeFaller[,,] boardState)
+    //------------
+
+    // ƒLƒ…[ƒu‚Ì‰ñ“]ˆ—
+    public CubeFaller[,,] RotateCube(string _direction, CubeFaller[,,] boardState)
     {
         preRotate = _direction;
         isRotated = true;
@@ -42,15 +51,16 @@ public class CubeRotater : MonoBehaviour
         if (rotationCheck == false)
         {
             rotationCheck = true;
-            StartCoroutine(Delay(_direction, boardState));
+            StartCoroutine(Rotate(_direction, boardState));
         }
 
         return RotateBoardState(_direction, boardState);
     }
 
-    IEnumerator Delay(string _direction, CubeFaller[,,] boardState)
+    // ‰ñ“]ˆ—
+    IEnumerator Rotate(string _direction, CubeFaller[,,] boardState)
     {
-        count = 90 / speed;
+        float count = 90 / speed;
 
         for (int i = 0; i < count; i++)
         {
@@ -89,11 +99,12 @@ public class CubeRotater : MonoBehaviour
         hasRotated = true;
     }
 
+    // ”z—ñ‚Ì‰ñ“]ˆ—
     private CubeFaller[,,] RotateBoardState(string _direction, CubeFaller[,,] boardState)
     {
         CubeFaller[,,] rotatedBoardState = new CubeFaller[3, 3, 3];
 
-        //”»’è‚Ì”z—ñ‚ğ‰ñ“]
+        // ”z—ñ‚ğ‰ñ“]
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)

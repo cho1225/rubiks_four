@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class ResultManager : MonoBehaviour
 {
+    // 参照するスクリプト
     private Result result;
+    // キューブをまとめて回すための親オブジェクト
     [SerializeField]private GameObject resultParentObject;
+
+    //------------結果の表示に必要な設定
 
     [SerializeField]private Image mainImage;
     [SerializeField] private Sprite redWinSpr;
@@ -16,9 +20,12 @@ public class ResultManager : MonoBehaviour
     [SerializeField] private GameObject ResultRedCube;
     [SerializeField] private GameObject ResultBlueCube;
 
-    // Start is called before the first frame update
+    //------------
+
+    // 結果を表示
     void Start()
     {
+        // Resultを探してとってくる
         GameObject resultObject = GameObject.Find("Result");
         if (resultObject != null)
         {
@@ -35,23 +42,24 @@ public class ResultManager : MonoBehaviour
             return;
         }
 
+        // 結果をセット
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
                 for (int k = 0; k < 3; k++)
                 {
-                    if (result.GetResultBoardState()[i, j, k] == 1)
+                    if (result.ResultBoardState[i, j, k] == 1)
                     {
                         GameObject newCube = Instantiate(ResultRedCube, resultParentObject.transform);
                         newCube.transform.position = new Vector3(i - 1, j - 1, k - 1);
                     }
-                    else if (result.GetResultBoardState()[i, j, k] == 2)
+                    else if (result.ResultBoardState[i, j, k] == 2)
                     {
                         GameObject newCube = Instantiate(ResultBlueCube, resultParentObject.transform);
                         newCube.transform.position = new Vector3(i - 1, j - 1, k - 1);
                     }
-                    else if (result.GetResultBoardState()[i, j, k] == 0)
+                    else if (result.ResultBoardState[i, j, k] == 0)
                     {
                         GameObject newCube = Instantiate(ResultGrayCube, resultParentObject.transform);
                         newCube.transform.position = new Vector3(i - 1, j - 1, k - 1);
@@ -60,11 +68,11 @@ public class ResultManager : MonoBehaviour
             }
         }
 
-        if (result.GetWinner() == 1)
+        if (result.Winner == 1)
         {
             mainImage.sprite = redWinSpr;
         }
-        else if (result.GetWinner() == 2)
+        else if (result.Winner == 2)
         {
             mainImage.sprite = blueWinSpr;
         }

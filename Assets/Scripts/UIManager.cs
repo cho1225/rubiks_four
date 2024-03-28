@@ -9,16 +9,19 @@ public class UIManager : MonoBehaviour
     public GameObject waku;
     public Button[] rotateButtonArray = new Button[4];
 
+    // ボタンがアクティブかを設定
     public void SetBottunActive(bool _bool)
     {
         rotateButton.SetActive(_bool);
     }
 
+    // 枠がアクティブかを設定
     public void SetWakuActive(bool _bool)
     {
         waku.SetActive(_bool);
     }
 
+    // 指定されたボタンを押せないようにする
     public void SetInteractiveButton(string preRotate)
     {
         switch (preRotate)

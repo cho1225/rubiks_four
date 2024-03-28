@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //------------参照するスクリプト
+
     [SerializeField] private PanelManager panelManager;
     [SerializeField] private CubeManager cubeManager;
     [SerializeField] private UIManager uiManager;
@@ -11,17 +13,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ChangeScene changeScene;
     private Result result;
 
+    //------------
+
+    // ゲームフェーズの配列
     private string[] gameState = { "CanPush", "Falling", "Judge", "Rotate", "Falling", "Judge" };
+    // 現在のゲームフェーズ
     private int gameStateNumber = 4;
 
+    // 最初にResultコンポーネントをとってきて初期化する
     void Start()
     {
+        // DontDestroyOnLoadを使用しているため、Findで探す必要がある
         result = GameObject.Find("Result").GetComponent<Result>();
         result.InitializeResult();
     }
 
+    // メイン処理
     void Update()
     {
+        // パネルを押すフェーズ
         if (gameState[gameStateNumber] == "CanPush")
         {
             judgeManager.HasJudge = false;
@@ -33,7 +43,7 @@ public class GameManager : MonoBehaviour
             }
             panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.BoardState);
         }
-
+        // キューブの落下フェーズ
         if (gameState[gameStateNumber] == "Falling")
         {
             panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.BoardState);
@@ -44,7 +54,7 @@ public class GameManager : MonoBehaviour
                 SetGameState();
             }
         }
-
+        // キューブの回転フェーズ
         if (gameState[gameStateNumber] == "Rotate")
         {
             judgeManager.HasJudge = false;
@@ -54,7 +64,7 @@ public class GameManager : MonoBehaviour
             {
                 uiManager.SetWakuActive(false);
                 cubeManager.ResetAllCube();
-                cubeManager.BoardState = cubeManager.CubeRotater.Rotate(cubeManager.CubeRotater.Direction, cubeManager.BoardState);
+                cubeManager.BoardState = cubeManager.CubeRotater.RotateCube(cubeManager.CubeRotater.Direction, cubeManager.BoardState);
                 cubeManager.CubeRotater.IsRotated = false;
             }
             if (cubeManager.CubeRotater.HasRotated)
@@ -64,7 +74,7 @@ public class GameManager : MonoBehaviour
                 SetGameState();
             }
         }
-
+        // 勝利判定フェーズ
         if (gameState[gameStateNumber] == "Judge")
         {
             if (judgeManager.CheckWinner(cubeManager.BoardState) != "done") 
@@ -79,6 +89,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // フェーズを次に進める
     private void SetGameState()
     {
         gameStateNumber = (gameStateNumber + 1) % 6;

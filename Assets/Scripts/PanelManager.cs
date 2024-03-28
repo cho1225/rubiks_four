@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class PanelManager : MonoBehaviour
 {
-    private float x;
-    private float z;
-    private bool pushes;
+    // 参照するスクリプト
     [SerializeField] Panel[] panels;
+    // 押されたパネルのx座標を保持する変数
+    private float x;
+    // 押されたパネルのz座標を保持する変数
+    private float z;
+    // パネルがどれか一つでも押されたかどうか
+    private bool pushes;
 
-    // 引数は渡すべき？
+    // xとzのプロパティ
+    public (float, float) XZ { get { return (x, z); } }
+
+    // pushesと各パネルのpushをfalseに設定
     public void SetPushes()
     {
         this.pushes = false;
@@ -20,8 +27,7 @@ public class PanelManager : MonoBehaviour
 
     }
 
-    public (float, float) XZ { get { return (x, z); } }
-
+    // すべてのパネルのコライダーが有効かどうかを管理
     public void EnabledAllPanel(string gameState, CubeFaller[,,] boardState)
     {
         if (gameState == "CanPush")
@@ -47,6 +53,7 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    // パネルがどれか一つでも押されたかどうかを判定
     public bool IsPushes()
     {
         for (int i = 0; i < panels.Length; i++)

@@ -21,14 +21,17 @@ public class JudgeManager : MonoBehaviour
         new Vector3(-1, 1, -1),
         new Vector3(1, -1, -1) 
     };
+    // 勝利判定済みかどうか
     private bool hasJudge = false;
 
+    // hasJudgeのプロパティ
     public bool HasJudge
     {
         get { return hasJudge; }
         set { hasJudge = value; }
     }
 
+    // 勝者を判定
     public string CheckWinner(CubeFaller[,,] boardState)
     {
         if (!HasJudge)
@@ -69,7 +72,7 @@ public class JudgeManager : MonoBehaviour
         return "done";
     }
 
-    // 特定の方向で3つの連続したセルが揃っているかどうかを確認
+    // 指定された方向で3つの連続したセルが揃っているかどうかを確認
     private bool CheckDirection(int startX, int startY, int startZ, int player, Vector3 direction, CubeFaller[,,] boardState)
     {
         for (int i = 0; i < 3; i++)
@@ -78,13 +81,13 @@ public class JudgeManager : MonoBehaviour
             int y = startY + (int)direction.y * i;
             int z = startZ + (int)direction.z * i;
 
-            // ボードの範囲外に出た場合は false を返す
+            // ボードの範囲外に出た場合はfalseを返す
             if (x < 0 || x >= 3 || y < 0 || y >= 3 || z < 0 || z >= 3)
             {
                 return false;
             }
 
-            // 連続していない場合は false を返す
+            // 連続していない場合はfalseを返す
             if (boardState[x, y, z] == null)
             {
                 return false;

@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Panel : MonoBehaviour
 {
-    private Color mouseOverColor = Color.gray;      // マウスオーバー時の色
-    private Color originalColor;                    // 元の色
-    private MeshRenderer meshRenderer;              // ゲームオブジェクトのRenderer
+    // マウスオーバー時の色
+    private Color mouseOverColor = Color.gray;
+    // 元の色
+    private Color originalColor;
+    // ゲームオブジェクトのRenderer
+    private MeshRenderer meshRenderer;
+    // パネルのBoxCollider
     private BoxCollider boxCollider;
-
+    // パネルのx座標
     private float x;
+    // パネルのz座標
     private float z;
+    // パネルが押されたかどうか
     private bool push;
 
     void Start()
@@ -28,7 +34,8 @@ public class Panel : MonoBehaviour
         originalColor = meshRenderer.material.color;
     }
 
-    // プロパティはどちらも実装するべき？
+    //------------各プロパティ
+
     public float X { get { return x; } }
 
     public float Z { get { return z; } }
@@ -39,8 +46,12 @@ public class Panel : MonoBehaviour
         set { push = value; }
     }
 
+    //------------
+
+    // パネルのコライダーが有効かどうかを設定
     public void SetEnabledPanel(bool _bool) { boxCollider.enabled = _bool; }
 
+    // パネルをもとの状態に戻す
     public void ResetPanel()
     {
         Push = false;
@@ -48,9 +59,11 @@ public class Panel : MonoBehaviour
 
     }
 
+    // パネルがクリックされたときの処理
     public void OnClick() { Push = true; }
 
+    // マウスオーバー時の処理
     void OnMouseOver() { meshRenderer.material.color = mouseOverColor; }
-
+    // マウスオーバーではない時の処理
     void OnMouseExit() { meshRenderer.material.color = originalColor; }
 }

@@ -16,9 +16,9 @@ public class ChangeScene : MonoBehaviour
     public void EndGame()
     {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;// ゲームプレイ終了
+        UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit();// ゲームプレイ終了
+        Application.Quit();
 #endif
     }
 }

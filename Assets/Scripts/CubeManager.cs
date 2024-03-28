@@ -5,16 +5,26 @@ using UnityEngine;
 
 public class CubeManager : MonoBehaviour
 {
+    //------------参照するスクリプト
+
     private CubeFaller[,,] boardState = new CubeFaller[3, 3, 3];
     [SerializeField] private CubeRotater cubeRotater;
-    [SerializeField] private GameObject[] Cubes;
 
+    //------------
+
+    // キューブ生成のためのプレハブ
+    [SerializeField] private GameObject[] Cubes;
+    /* 次に生成されるキューブが何色か
+       灰色は0、赤色は1、青色は2 */
     private int nextCubeColorIndex = 0;
 
+    // 最初にランダムな場所に灰色のキューブを生成する
     void Start()
     {
         GenerateCube(GenerateRandomPosition(), nextCubeColorIndex);
     }
+
+    //------------各プロパティ
 
     public CubeFaller[,,] BoardState
     {
@@ -22,26 +32,34 @@ public class CubeManager : MonoBehaviour
         set { boardState = value; }
     }
 
+    public int NextCubeColorIndex { get { return nextCubeColorIndex; } }
+
+    //------------
+
+    // ランダムな座標を作成
     private (float, float) GenerateRandomPosition()
     {
-        // ランダムなインデックスを選択
+        // -1～1までのランダムなインデックスを代入
         int xRandomIndex = UnityEngine.Random.Range(-1, 2);
         int zRandomIndex = UnityEngine.Random.Range(-1, 2);
 
         return (xRandomIndex, zRandomIndex);
     }
 
+    // 指定された座標に任意のキューブを生成
     public void GenerateCube((float, float) position, int _cubeColor)
     {
         GameObject obj = Cubes[_cubeColor];
         GameObject newCube = Instantiate(obj);
         newCube.transform.parent = transform;
         newCube.transform.position = new Vector3(position.Item1, 1, position.Item2);
+        
         SetCubeOnBoard(position, newCube);
 
         SwitchCubeColor();
     }
 
+    // 生成されたキューブ（落下済）を配列にあらかじめ追加
     private void SetCubeOnBoard((float, float) position, GameObject newCube)
     {
         for (int i = 0; i < 3; i++)
@@ -54,8 +72,7 @@ public class CubeManager : MonoBehaviour
         }
     }
 
-    public int NextCubeColorIndex { get { return nextCubeColorIndex; } }
-
+    // 次に生成されるキューブの色を切り替える
     private void SwitchCubeColor()
     {
         if (nextCubeColorIndex == 1)
@@ -67,6 +84,7 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+    // すべてのキューブの落下処理を管理
     public void FallAllCube()
     {
         for (int i = 0; i < 3; i++)
@@ -92,6 +110,7 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+    // すべてのキューブが落下済みかどうかを判定
     public bool AllHasFalled()
     {
         for (int i = 0; i < 3; i++)
@@ -113,6 +132,7 @@ public class CubeManager : MonoBehaviour
         return true;
     }
 
+    // すべてのキューブを未落下に設定
     public void ResetAllCube()
     {
         for (int i = 0; i < 3; i++)
@@ -130,5 +150,6 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+    // CubeRotaterを返す
     public CubeRotater CubeRotater { get { return cubeRotater; } }
 }
