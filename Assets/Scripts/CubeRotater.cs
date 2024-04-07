@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class CubeRotater : MonoBehaviour
     // ‚Ğ‚Æ‚Â‘O‚É‰ñ“]‚µ‚½•ûŒü
     private string preRotate = "none";
     // ‰ñ“]•ûŒü
-    public string direction = "none";
+    private string direction;
     // ‰ñ“]’†‚©‚Ç‚¤‚©
     private bool rotationCheck = false;
     // ‰ñ“]Ï‚İ‚©‚Ç‚¤‚©
@@ -28,9 +29,9 @@ public class CubeRotater : MonoBehaviour
 
     public string PreRotate { get { return preRotate; } }
 
-    public string Direction 
+    public string Direction
     {
-        get { return direction; }
+        get { return this.direction; }
         set { direction = value; }
     }
 

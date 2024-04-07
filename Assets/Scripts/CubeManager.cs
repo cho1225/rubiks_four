@@ -18,6 +18,12 @@ public class CubeManager : MonoBehaviour
        灰色は0、赤色は1、青色は2 */
     private int nextCubeColorIndex = 0;
 
+    // 回転ボタンが押されたかどうか
+    public bool IsRotated => cubeRotater.IsRotated;
+    // ひとつ前に回転した方向
+    public string PreRotate => cubeRotater.PreRotate;
+    // 回転済みかどうか
+
     // 最初にランダムな場所に灰色のキューブを生成する
     void Start()
     {
@@ -30,6 +36,12 @@ public class CubeManager : MonoBehaviour
     {
         get { return boardState; }
         set { boardState = value; }
+    }
+
+    public bool HasRotated
+    {
+        get { return cubeRotater.HasRotated; }
+        set { cubeRotater.HasRotated = value; }
     }
 
     public int NextCubeColorIndex { get { return nextCubeColorIndex; } }
@@ -110,6 +122,13 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+    public void RotateAllCube()
+    {
+        ResetAllCube();
+        BoardState = cubeRotater.RotateCube(cubeRotater.Direction, BoardState);
+        cubeRotater.IsRotated = false;
+    }
+
     // すべてのキューブが落下済みかどうかを判定
     public bool AllHasFalled()
     {
@@ -149,7 +168,4 @@ public class CubeManager : MonoBehaviour
             }
         }
     }
-
-    // CubeRotaterを返す
-    public CubeRotater CubeRotater { get { return cubeRotater; } }
 }

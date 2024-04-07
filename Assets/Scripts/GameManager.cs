@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         if (gameState[gameStateNumber] == "Falling")
         {
             panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.BoardState);
-            cubeManager.CubeRotater.HasRotated = false;
+            cubeManager.HasRotated = false;
             cubeManager.FallAllCube();
             if (cubeManager.AllHasFalled())
             {
@@ -58,16 +58,14 @@ public class GameManager : MonoBehaviour
         if (gameState[gameStateNumber] == "Rotate")
         {
             judgeManager.HasJudge = false;
-            uiManager.SetInteractiveButton(cubeManager.CubeRotater.PreRotate);
+            uiManager.SetInteractiveButton(cubeManager.PreRotate);
             uiManager.SetBottunActive(true);
-            if (cubeManager.CubeRotater.IsRotated)
+            if (cubeManager.IsRotated)
             {
                 uiManager.SetWakuActive(false);
-                cubeManager.ResetAllCube();
-                cubeManager.BoardState = cubeManager.CubeRotater.RotateCube(cubeManager.CubeRotater.Direction, cubeManager.BoardState);
-                cubeManager.CubeRotater.IsRotated = false;
+                cubeManager.RotateAllCube();
             }
-            if (cubeManager.CubeRotater.HasRotated)
+            if (cubeManager.HasRotated)
             {
                 uiManager.SetWakuActive(true);
                 uiManager.SetBottunActive(false);

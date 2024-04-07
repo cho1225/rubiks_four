@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject rotateButton;
-    public GameObject waku;
-    public Button[] rotateButtonArray = new Button[4];
+    // 回転用のボタンをまとめているオブジェクト
+    [SerializeField] private GameObject rotateButton;
+    // 枠のゲームオブジェクト
+    [SerializeField] private GameObject waku;
+    // 回転用のボタンの配列
+    [SerializeField] private Button[] rotateButtonArray;
 
     // ボタンがアクティブかを設定
     public void SetBottunActive(bool _bool)
