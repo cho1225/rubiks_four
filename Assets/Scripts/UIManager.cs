@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +12,23 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject waku;
     // 回転用のボタンの配列
     [SerializeField] private Button[] rotateButtonArray;
+    // どちらの手番かを表すtext
+    [SerializeField] private TextMeshProUGUI textMeshPro;
+
+    // どちらの手番かを表すtextを設定
+    public void SetText(int nextCubeColor)
+    {
+        if (nextCubeColor == 1)
+        {
+            textMeshPro.text = "red";
+            textMeshPro.color = Color.red;
+        }
+        else if (nextCubeColor == 2)
+        {
+            textMeshPro.text = "blue";
+            textMeshPro.color = Color.blue;
+        }
+    }
 
     // ボタンがアクティブかを設定
     public void SetBottunActive(bool _bool)

@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         // パネルを押すフェーズ
         if (gameState[gameStateNumber] == "CanPush")
         {
+            uiManager.SetText(cubeManager.NextCubeColorIndex);
             judgeManager.HasJudge = false;
             if (panelManager.IsPushes())
             {
