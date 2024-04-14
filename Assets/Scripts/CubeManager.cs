@@ -20,9 +20,9 @@ public class CubeManager : MonoBehaviour
 
     // 回転ボタンが押されたかどうか
     public bool IsRotated => cubeRotater.IsRotated;
+
     // ひとつ前に回転した方向
     public string PreRotate => cubeRotater.PreRotate;
-    // 回転済みかどうか
 
     // 最初にランダムな場所に灰色のキューブを生成する
     void Start()

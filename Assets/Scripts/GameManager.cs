@@ -34,8 +34,6 @@ public class GameManager : MonoBehaviour
         // パネルを押すフェーズ
         if (gameState[gameStateNumber] == "CanPush")
         {
-            uiManager.SetText(cubeManager.NextCubeColorIndex);
-            judgeManager.HasJudge = false;
             if (panelManager.IsPushes())
             {
                 SetGameState();
@@ -58,12 +56,10 @@ public class GameManager : MonoBehaviour
         // キューブの回転フェーズ
         if (gameState[gameStateNumber] == "Rotate")
         {
-            judgeManager.HasJudge = false;
-            uiManager.SetInteractiveButton(cubeManager.PreRotate);
-            uiManager.SetBottunActive(true);
             if (cubeManager.IsRotated)
             {
                 uiManager.SetWakuActive(false);
+                uiManager.SetBottunActive(false);
                 cubeManager.RotateAllCube();
             }
             if (cubeManager.HasRotated)
@@ -83,6 +79,19 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                // 回転前のジャッジか
+                if (gameStateNumber == 2)
+                {
+                    judgeManager.HasJudge = false;
+                    uiManager.SetInteractiveButton(cubeManager.PreRotate);
+                    uiManager.SetBottunActive(true);
+                }
+                // プッシュ前のジャッジか
+                if (gameStateNumber == 5)
+                {
+                    judgeManager.HasJudge = false;
+                    uiManager.SetText(cubeManager.NextCubeColorIndex);
+                }
                 SetGameState();
             }
         }
