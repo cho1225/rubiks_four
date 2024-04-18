@@ -33,6 +33,7 @@ public class Panel : MonoBehaviour
 
     //------------
 
+    // Panelの初期化
     public void InitializePanel()
     {
         // パネルの情報をセット

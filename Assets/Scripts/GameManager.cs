@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour
         // DontDestroyOnLoadを使用しているため、Findで探す必要がある
         result = GameObject.Find("Result").GetComponent<Result>();
         result.InitializeResult();
+        // Panelを初期化
         panelManager.InitializePanels();
+        // 最初に灰色のキューブを追加
         cubeManager.GenerateGrayCube();
     }
 

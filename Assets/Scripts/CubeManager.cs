@@ -52,7 +52,7 @@ public class CubeManager : MonoBehaviour
         return (xRandomIndex, zRandomIndex);
     }
 
-    // 最初にランダムな場所に灰色のキューブを生成する
+    // ランダムな場所に灰色のキューブを生成する
     public void GenerateGrayCube()
     {
         GenerateCube(GenerateRandomPosition(), nextCubeColorIndex);

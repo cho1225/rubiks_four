@@ -16,6 +16,7 @@ public class PanelManager : MonoBehaviour
     // xとzのプロパティ
     public (float, float) XZ { get { return (x, z); } }
 
+    // Panelを一括で初期化
     public void InitializePanels()
     {
         foreach (Panel panel in panels)
