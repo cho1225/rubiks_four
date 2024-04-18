@@ -20,12 +20,14 @@ public class GameManager : MonoBehaviour
     // 現在のゲームフェーズ
     private int gameStateNumber = 4;
 
-    // 最初にResultコンポーネントをとってきて初期化する
+    // 各スクリプトのStart関数は順番が保証されていないので一括で初期化
     void Start()
     {
         // DontDestroyOnLoadを使用しているため、Findで探す必要がある
         result = GameObject.Find("Result").GetComponent<Result>();
         result.InitializeResult();
+        panelManager.InitializePanels();
+        cubeManager.GenerateGrayCube();
     }
 
     // メイン処理

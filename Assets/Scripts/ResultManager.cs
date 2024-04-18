@@ -81,4 +81,9 @@ public class ResultManager : MonoBehaviour
             Debug.Log("winner‚ªŽæ“¾‚Å‚«‚Ä‚¢‚Ü‚¹‚ñ");
         }
     }
+
+    private void Update()
+    {
+        transform.Rotate(new Vector3(-7, -3, 5) * Time.deltaTime);
+    }
 }

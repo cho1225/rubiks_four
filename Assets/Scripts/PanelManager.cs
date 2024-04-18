@@ -16,6 +16,14 @@ public class PanelManager : MonoBehaviour
     // xとzのプロパティ
     public (float, float) XZ { get { return (x, z); } }
 
+    public void InitializePanels()
+    {
+        foreach (Panel panel in panels)
+        {
+            panel.InitializePanel();
+        }
+    }
+
     // pushesと各パネルのpushをfalseに設定
     public void SetPushes()
     {

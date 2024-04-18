@@ -18,18 +18,6 @@ public class CubeManager : MonoBehaviour
        灰色は0、赤色は1、青色は2 */
     private int nextCubeColorIndex = 0;
 
-    // 回転ボタンが押されたかどうか
-    public bool IsRotated => cubeRotater.IsRotated;
-
-    // ひとつ前に回転した方向
-    public string PreRotate => cubeRotater.PreRotate;
-
-    // 最初にランダムな場所に灰色のキューブを生成する
-    void Start()
-    {
-        GenerateCube(GenerateRandomPosition(), nextCubeColorIndex);
-    }
-
     //------------各プロパティ
 
     public CubeFaller[,,] BoardState
@@ -46,6 +34,12 @@ public class CubeManager : MonoBehaviour
 
     public int NextCubeColorIndex { get { return nextCubeColorIndex; } }
 
+    // 回転ボタンが押されたかどうか
+    public bool IsRotated => cubeRotater.IsRotated;
+
+    // ひとつ前に回転した方向
+    public string PreRotate => cubeRotater.PreRotate;
+
     //------------
 
     // ランダムな座標を作成
@@ -56,6 +50,12 @@ public class CubeManager : MonoBehaviour
         int zRandomIndex = UnityEngine.Random.Range(-1, 2);
 
         return (xRandomIndex, zRandomIndex);
+    }
+
+    // 最初にランダムな場所に灰色のキューブを生成する
+    public void GenerateGrayCube()
+    {
+        GenerateCube(GenerateRandomPosition(), nextCubeColorIndex);
     }
 
     // 指定された座標に任意のキューブを生成

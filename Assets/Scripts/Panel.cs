@@ -19,21 +19,6 @@ public class Panel : MonoBehaviour
     // パネルが押されたかどうか
     private bool push;
 
-    void Start()
-    {
-        // パネルの情報をセット
-        x = this.transform.position.x;
-        z = this.transform.position.z;
-        push = false;
-
-        // Rendererコンポーネントをとってくる
-        meshRenderer = GetComponent<MeshRenderer>();
-        // Colliderコンポーネントをとってくる
-        boxCollider = GetComponent<BoxCollider>();
-        // オリジナルの色をとってくる
-        originalColor = meshRenderer.material.color;
-    }
-
     //------------各プロパティ
 
     public float X { get { return x; } }
@@ -47,6 +32,21 @@ public class Panel : MonoBehaviour
     }
 
     //------------
+
+    public void InitializePanel()
+    {
+        // パネルの情報をセット
+        x = this.transform.position.x;
+        z = this.transform.position.z;
+        push = false;
+
+        // Rendererコンポーネントをとってくる
+        meshRenderer = GetComponent<MeshRenderer>();
+        // Colliderコンポーネントをとってくる
+        boxCollider = GetComponent<BoxCollider>();
+        // オリジナルの色をとってくる
+        originalColor = meshRenderer.material.color;
+    }
 
     // パネルのコライダーが有効かどうかを設定
     public void SetEnabledPanel(bool _bool) { boxCollider.enabled = _bool; }
