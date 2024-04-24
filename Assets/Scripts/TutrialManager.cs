@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,24 +6,24 @@ using UnityEngine.UI;
 
 public class TutrialManager : MonoBehaviour
 {
-    // •\¦’†‚Ì‰æ‘œ
+    // è¡¨ç¤ºä¸­ã®ç”»åƒ
     [SerializeField] private Image tutrialImage;
-    // •\¦‚·‚é‰æ‘œ‚Ì”z—ñ
+    // è¡¨ç¤ºã™ã‚‹ç”»åƒã®é…åˆ—
     [SerializeField] private Sprite[] tutrialSprites;
-    // •\¦’†‚Ì‰æ‘œ‚Ìƒy[ƒW”Ô†‚ğ•\‚·text
+    // è¡¨ç¤ºä¸­ã®ç”»åƒã®ãƒšãƒ¼ã‚¸ç•ªå·ã‚’è¡¨ã™text
     [SerializeField] private TextMeshProUGUI pageIndexText;
-    // Ÿ‚Ìƒy[ƒW‚Éi‚ß‚éƒ{ƒ^ƒ“
+    // æ¬¡ã®ãƒšãƒ¼ã‚¸ã«é€²ã‚ã‚‹ãƒœã‚¿ãƒ³
     [SerializeField] private Button nextButton;
-    // ‘O‚Ìƒy[ƒW‚É–ß‚éƒ{ƒ^ƒ“
+    // å‰ã®ãƒšãƒ¼ã‚¸ã«æˆ»ã‚‹ãƒœã‚¿ãƒ³
     [SerializeField] private Button backButton;
-    // •\¦’†‚Ì‰æ‘œ‚Ìƒy[ƒW”Ô†
+    // è¡¨ç¤ºä¸­ã®ç”»åƒã®ãƒšãƒ¼ã‚¸ç•ªå·
     private int pageIndex;
-    // ƒ`ƒ…[ƒgƒŠƒAƒ‹‚Ìƒy[ƒW”
+    // ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã®ãƒšãƒ¼ã‚¸æ•°
     private int pageIndexMax = 6;
-    // ƒy[ƒW”Ô†‚ª•Ï‚í‚Á‚½‚©‚Ç‚¤‚©
+    // ãƒšãƒ¼ã‚¸ç•ªå·ãŒå¤‰ã‚ã£ãŸã‹ã©ã†ã‹
     private bool isPageIndexChange = false;
 
-    // ƒ`ƒ…[ƒgƒŠƒAƒ‹‚Ìİ’è‚ğ‰Šú‰»
+    // ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã®è¨­å®šã‚’åˆæœŸåŒ–
     public void InitializeTutrial()
     {
         pageIndex = 0;
@@ -34,13 +34,13 @@ public class TutrialManager : MonoBehaviour
 
     }
 
-    // •\¦’†‚Ì‰æ‘œ‚Ìƒy[ƒW”Ô†‚ğ•\‚·text‚Éƒy[ƒW”Ô†‚ğİ’è
+    // è¡¨ç¤ºä¸­ã®ç”»åƒã®ãƒšãƒ¼ã‚¸ç•ªå·ã‚’è¡¨ã™textã«ãƒšãƒ¼ã‚¸ç•ªå·ã‚’è¨­å®š
     public void UpdateImage()
     {
-        // ƒy[ƒW”Ô†‚ª•Ï‚í‚Á‚½‚Æ‚«‚Ì‚İÀs
+        // ãƒšãƒ¼ã‚¸ç•ªå·ãŒå¤‰ã‚ã£ãŸã¨ãã®ã¿å®Ÿè¡Œ
         if (isPageIndexChange)
         {
-            // ƒ{ƒ^ƒ“‚ªƒCƒ“ƒ^ƒ‰ƒNƒeƒBƒu‚©‚ğİ’è
+            // ãƒœã‚¿ãƒ³ãŒã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ãƒ†ã‚£ãƒ–ã‹ã‚’è¨­å®š
             if (pageIndex >= pageIndexMax)
             {
                 nextButton.interactable = false;
@@ -54,15 +54,15 @@ public class TutrialManager : MonoBehaviour
                 nextButton.interactable = true;
                 backButton.interactable = true;
             }
-            // •\¦’†‚Ì‰æ‘œ‚Ìƒy[ƒW”Ô†‚ğ•\‚·text‚Éƒy[ƒW”Ô†‚ğİ’è
+            // è¡¨ç¤ºä¸­ã®ç”»åƒã®ãƒšãƒ¼ã‚¸ç•ªå·ã‚’è¡¨ã™textã«ãƒšãƒ¼ã‚¸ç•ªå·ã‚’è¨­å®š
             pageIndexText.text = (pageIndex + 1).ToString();
-            // •\¦’†‚Ì‰æ‘œ‚ğİ’è
+            // è¡¨ç¤ºä¸­ã®ç”»åƒã‚’è¨­å®š
             tutrialImage.sprite = tutrialSprites[pageIndex];
             isPageIndexChange = false;
         }
     }
 
-    // ƒy[ƒW”Ô†‚ğŸ‚Éi‚ß‚é
+    // ãƒšãƒ¼ã‚¸ç•ªå·ã‚’æ¬¡ã«é€²ã‚ã‚‹
     public void NextPage()
     {
         if (pageIndex < pageIndexMax)
@@ -72,7 +72,7 @@ public class TutrialManager : MonoBehaviour
         }
     }
 
-    // ƒy[ƒW”Ô†‚ğ‘O‚É–ß‚·
+    // ãƒšãƒ¼ã‚¸ç•ªå·ã‚’å‰ã«æˆ»ã™
     public void BackPage()
     {
         if (pageIndex > 0)

@@ -1,19 +1,19 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class CubeFaller : MonoBehaviour
 {
-    // ‚±‚ÌƒLƒ…[ƒu‚ª—‰ºÏ‚İ‚©
+    // ã“ã®ã‚­ãƒ¥ãƒ¼ãƒ–ãŒè½ä¸‹æ¸ˆã¿ã‹
     private bool hasFalled = false;
-    // —‰º‚ÌƒXƒs[ƒh
+    // è½ä¸‹ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
     private float speed = 1.0f;
-    /* ‚±‚ÌƒLƒ…[ƒu‚ª‰½F‚©
-       ŠDF‚Í0AÔF‚Í1AÂF‚Í2 */
+    /* ã“ã®ã‚­ãƒ¥ãƒ¼ãƒ–ãŒä½•è‰²ã‹
+       ç°è‰²ã¯0ã€èµ¤è‰²ã¯1ã€é’è‰²ã¯2 */
     [SerializeField] private int cubeColorIndex;
 
-    //------------ŠeƒvƒƒpƒeƒB
+    //------------å„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
     public bool HasFalled
     {
@@ -25,13 +25,13 @@ public class CubeFaller : MonoBehaviour
 
     //------------
 
-    // ƒLƒ…[ƒu‚Ì—‰ºˆ—
+    // ã‚­ãƒ¥ãƒ¼ãƒ–ã®è½ä¸‹å‡¦ç†
     public void FallCube()
     {
         this.transform.Translate(0, -speed * Time.deltaTime, 0, Space.World);
     }
 
-    // ƒLƒ…[ƒu‚ª—‰ºÏ‚İ‚©‚Ç‚¤‚©‚ğ”»’è
+    // ã‚­ãƒ¥ãƒ¼ãƒ–ãŒè½ä¸‹æ¸ˆã¿ã‹ã©ã†ã‹ã‚’åˆ¤å®š
     public bool CheckHasFalled(CubeFaller[,,] boardState, int i, int j, int k)
     {
         if (j == 0)

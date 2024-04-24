@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class ChangeScene : MonoBehaviour
 {
-    // “Á’è‚ÌƒV[ƒ“‚ÖˆÚ“®
+    // ç‰¹å®šã®ã‚·ãƒ¼ãƒ³ã¸ç§»å‹•
     public void Load(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    // ƒQ[ƒ€I—¹
+    // ã‚²ãƒ¼ãƒ çµ‚äº†
     public void EndGame()
     {
 #if UNITY_EDITOR

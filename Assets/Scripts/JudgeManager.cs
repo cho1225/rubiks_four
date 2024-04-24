@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
 public class JudgeManager : MonoBehaviour
 {
-    // ƒ`ƒFƒbƒN‚·‚é‰Â”\«‚Ì‚ ‚é•ûŒü
+    // ãƒã‚§ãƒƒã‚¯ã™ã‚‹å¯èƒ½æ€§ã®ã‚ã‚‹æ–¹å‘
     private Vector3[] directions = {
         Vector3.right,
         Vector3.up,
@@ -21,24 +21,24 @@ public class JudgeManager : MonoBehaviour
         new Vector3(-1, 1, -1),
         new Vector3(1, -1, -1) 
     };
-    // Ÿ—˜”»’èÏ‚İ‚©‚Ç‚¤‚©
+    // å‹åˆ©åˆ¤å®šæ¸ˆã¿ã‹ã©ã†ã‹
     private bool hasJudge = false;
 
-    // hasJudge‚ÌƒvƒƒpƒeƒB
+    // hasJudgeã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     public bool HasJudge
     {
         get { return hasJudge; }
         set { hasJudge = value; }
     }
 
-    // ŸÒ‚ğ”»’è
+    // å‹è€…ã‚’åˆ¤å®š
     public string CheckWinner(CubeFaller[,,] boardState)
     {
         if (!HasJudge)
         {
             foreach (Vector3 direction in directions)
             {
-                // Še•ûŒü‚²‚Æ‚ÉAƒQ[ƒ€ƒ{[ƒh‚ğƒXƒLƒƒƒ“‚µ‚ÄŸÒ‚ª‚¢‚é‚©‚Ç‚¤‚©‚ğ”»’è
+                // å„æ–¹å‘ã”ã¨ã«ã€ã‚²ãƒ¼ãƒ ãƒœãƒ¼ãƒ‰ã‚’ã‚¹ã‚­ãƒ£ãƒ³ã—ã¦å‹è€…ãŒã„ã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤å®š
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
@@ -47,7 +47,7 @@ public class JudgeManager : MonoBehaviour
                         {
                             if (boardState[i, j, k] != null)
                             {
-                                // Œ»İ‚ÌƒZƒ‹‚ªƒvƒŒƒCƒ„[‚Ì¯•Êq‚Æˆê’v‚µ‚Ä‚¢‚éê‡A˜A‘±‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğŠm”F
+                                // ç¾åœ¨ã®ã‚»ãƒ«ãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è­˜åˆ¥å­ã¨ä¸€è‡´ã—ã¦ã„ã‚‹å ´åˆã€é€£ç¶šã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’ç¢ºèª
                                 if (boardState[i, j, k].CubeColorIndex == 1)
                                 {
                                     if (CheckDirection(i, j, k, 1, direction, boardState))
@@ -72,7 +72,7 @@ public class JudgeManager : MonoBehaviour
         return "done";
     }
 
-    // w’è‚³‚ê‚½•ûŒü‚Å3‚Â‚Ì˜A‘±‚µ‚½ƒZƒ‹‚ª‘µ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğŠm”F
+    // æŒ‡å®šã•ã‚ŒãŸæ–¹å‘ã§3ã¤ã®é€£ç¶šã—ãŸã‚»ãƒ«ãŒæƒã£ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’ç¢ºèª
     private bool CheckDirection(int startX, int startY, int startZ, int player, Vector3 direction, CubeFaller[,,] boardState)
     {
         for (int i = 0; i < 3; i++)
@@ -81,13 +81,13 @@ public class JudgeManager : MonoBehaviour
             int y = startY + (int)direction.y * i;
             int z = startZ + (int)direction.z * i;
 
-            // ƒ{[ƒh‚Ì”ÍˆÍŠO‚Éo‚½ê‡‚Ífalse‚ğ•Ô‚·
+            // ãƒœãƒ¼ãƒ‰ã®ç¯„å›²å¤–ã«å‡ºãŸå ´åˆã¯falseã‚’è¿”ã™
             if (x < 0 || x >= 3 || y < 0 || y >= 3 || z < 0 || z >= 3)
             {
                 return false;
             }
 
-            // ˜A‘±‚µ‚Ä‚¢‚È‚¢ê‡‚Ífalse‚ğ•Ô‚·
+            // é€£ç¶šã—ã¦ã„ãªã„å ´åˆã¯falseã‚’è¿”ã™
             if (boardState[x, y, z] == null)
             {
                 return false;

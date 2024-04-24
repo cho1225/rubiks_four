@@ -1,22 +1,22 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PanelManager : MonoBehaviour
 {
-    // QÆ‚·‚éƒXƒNƒŠƒvƒg
+    // å‚ç…§ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
     [SerializeField] Panel[] panels;
-    // ‰Ÿ‚³‚ê‚½ƒpƒlƒ‹‚ÌxÀ•W‚ğ•Û‚·‚é•Ï”
+    // æŠ¼ã•ã‚ŒãŸãƒ‘ãƒãƒ«ã®xåº§æ¨™ã‚’ä¿æŒã™ã‚‹å¤‰æ•°
     private float x;
-    // ‰Ÿ‚³‚ê‚½ƒpƒlƒ‹‚ÌzÀ•W‚ğ•Û‚·‚é•Ï”
+    // æŠ¼ã•ã‚ŒãŸãƒ‘ãƒãƒ«ã®zåº§æ¨™ã‚’ä¿æŒã™ã‚‹å¤‰æ•°
     private float z;
-    // ƒpƒlƒ‹‚ª‚Ç‚ê‚©ˆê‚Â‚Å‚à‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©
+    // ãƒ‘ãƒãƒ«ãŒã©ã‚Œã‹ä¸€ã¤ã§ã‚‚æŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹
     private bool pushes;
 
-    // x‚Æz‚ÌƒvƒƒpƒeƒB
+    // xã¨zã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     public (float, float) XZ { get { return (x, z); } }
 
-    // Panel‚ğˆêŠ‡‚Å‰Šú‰»
+    // Panelã‚’ä¸€æ‹¬ã§åˆæœŸåŒ–
     public void InitializePanels()
     {
         foreach (Panel panel in panels)
@@ -25,7 +25,7 @@ public class PanelManager : MonoBehaviour
         }
     }
 
-    // pushes‚ÆŠeƒpƒlƒ‹‚Ìpush‚ğfalse‚Éİ’è
+    // pushesã¨å„ãƒ‘ãƒãƒ«ã®pushã‚’falseã«è¨­å®š
     public void SetPushes()
     {
         this.pushes = false;
@@ -36,7 +36,7 @@ public class PanelManager : MonoBehaviour
 
     }
 
-    // ‚·‚×‚Ä‚Ìƒpƒlƒ‹‚ÌƒRƒ‰ƒCƒ_[‚ª—LŒø‚©‚Ç‚¤‚©‚ğŠÇ—
+    // ã™ã¹ã¦ã®ãƒ‘ãƒãƒ«ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒæœ‰åŠ¹ã‹ã©ã†ã‹ã‚’ç®¡ç†
     public void EnabledAllPanel(string gameState, CubeFaller[,,] boardState)
     {
         if (gameState == "CanPush")
@@ -62,7 +62,7 @@ public class PanelManager : MonoBehaviour
         }
     }
 
-    // ƒpƒlƒ‹‚ª‚Ç‚ê‚©ˆê‚Â‚Å‚à‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©‚ğ”»’è
+    // ãƒ‘ãƒãƒ«ãŒã©ã‚Œã‹ä¸€ã¤ã§ã‚‚æŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹ã‚’åˆ¤å®š
     public bool IsPushes()
     {
         for (int i = 0; i < panels.Length; i++)

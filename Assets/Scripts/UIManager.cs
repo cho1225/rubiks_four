@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    // ‰ñ“]—p‚Ìƒ{ƒ^ƒ“‚ğ‚Ü‚Æ‚ß‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg
+    // å›è»¢ç”¨ã®ãƒœã‚¿ãƒ³ã‚’ã¾ã¨ã‚ã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     [SerializeField] private GameObject rotateButton;
-    // ˜g‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+    // æ ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     [SerializeField] private GameObject waku;
-    // ‰ñ“]—p‚Ìƒ{ƒ^ƒ“‚Ì”z—ñ
+    // å›è»¢ç”¨ã®ãƒœã‚¿ãƒ³ã®é…åˆ—
     [SerializeField] private Button[] rotateButtonArray;
-    // ‚Ç‚¿‚ç‚Ìè”Ô‚©‚ğ•\‚·text
+    // ã©ã¡ã‚‰ã®æ‰‹ç•ªã‹ã‚’è¡¨ã™text
     [SerializeField] private TextMeshProUGUI textMeshPro;
 
-    // ‚Ç‚¿‚ç‚Ìè”Ô‚©‚ğ•\‚·text‚ğİ’è
+    // ã©ã¡ã‚‰ã®æ‰‹ç•ªã‹ã‚’è¡¨ã™textã‚’è¨­å®š
     public void SetText(int nextCubeColor)
     {
         if (nextCubeColor == 1)
@@ -30,19 +30,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // ƒ{ƒ^ƒ“‚ªƒAƒNƒeƒBƒu‚©‚ğİ’è
+    // ãƒœã‚¿ãƒ³ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‹ã‚’è¨­å®š
     public void SetBottunActive(bool _bool)
     {
         rotateButton.SetActive(_bool);
     }
 
-    // ˜g‚ªƒAƒNƒeƒBƒu‚©‚ğİ’è
+    // æ ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‹ã‚’è¨­å®š
     public void SetWakuActive(bool _bool)
     {
         waku.SetActive(_bool);
     }
 
-    // w’è‚³‚ê‚½ƒ{ƒ^ƒ“‚ğ‰Ÿ‚¹‚È‚¢‚æ‚¤‚É‚·‚é
+    // æŒ‡å®šã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’æŠ¼ã›ãªã„ã‚ˆã†ã«ã™ã‚‹
     public void SetInteractiveButton(string preRotate)
     {
         switch (preRotate)

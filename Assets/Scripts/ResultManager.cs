@@ -1,16 +1,16 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ResultManager : MonoBehaviour
 {
-    // QÆ‚·‚éƒXƒNƒŠƒvƒg
+    // å‚ç…§ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
     private Result result;
-    // ƒLƒ…[ƒu‚ğ‚Ü‚Æ‚ß‚Ä‰ñ‚·‚½‚ß‚ÌeƒIƒuƒWƒFƒNƒg
+    // ã‚­ãƒ¥ãƒ¼ãƒ–ã‚’ã¾ã¨ã‚ã¦å›ã™ãŸã‚ã®è¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     [SerializeField]private GameObject resultParentObject;
 
-    //------------Œ‹‰Ê‚Ì•\¦‚É•K—v‚Èİ’è
+    //------------çµæœã®è¡¨ç¤ºã«å¿…è¦ãªè¨­å®š
 
     [SerializeField]private Image mainImage;
     [SerializeField] private Sprite redWinSpr;
@@ -22,27 +22,27 @@ public class ResultManager : MonoBehaviour
 
     //------------
 
-    // Œ‹‰Ê‚ğ•\¦
+    // çµæœã‚’è¡¨ç¤º
     void Start()
     {
-        // Result‚ğ’T‚µ‚Ä‚Æ‚Á‚Ä‚­‚é
+        // Resultã‚’æ¢ã—ã¦ã¨ã£ã¦ãã‚‹
         GameObject resultObject = GameObject.Find("Result");
         if (resultObject != null)
         {
             result = resultObject.GetComponent<Result>();
             if (result == null)
             {
-                Debug.Log("ResultƒRƒ“ƒ|[ƒlƒ“ƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+                Debug.Log("Resultã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“");
                 return;
             }
         }
         else
         {
-            Debug.Log("ResultƒIƒuƒWƒFƒNƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+            Debug.Log("Resultã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“");
             return;
         }
 
-        // Œ‹‰Ê‚ğƒZƒbƒg
+        // çµæœã‚’ã‚»ãƒƒãƒˆ
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
@@ -78,7 +78,7 @@ public class ResultManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("winner‚ªæ“¾‚Å‚«‚Ä‚¢‚Ü‚¹‚ñ");
+            Debug.Log("winnerãŒå–å¾—ã§ãã¦ã„ã¾ã›ã‚“");
         }
     }
 

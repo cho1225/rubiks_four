@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,20 +6,20 @@ using UnityEngine.UIElements;
 
 public class CubeRotater : MonoBehaviour
 {
-    // ‰ñ“]ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©
+    // å›è»¢ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹
     private bool isRotated = false;
-    // ‚Ğ‚Æ‚Â‘O‚É‰ñ“]‚µ‚½•ûŒü
+    // ã²ã¨ã¤å‰ã«å›è»¢ã—ãŸæ–¹å‘
     private string preRotate = "none";
-    // ‰ñ“]•ûŒü
+    // å›è»¢æ–¹å‘
     private string direction;
-    // ‰ñ“]’†‚©‚Ç‚¤‚©
+    // å›è»¢ä¸­ã‹ã©ã†ã‹
     private bool rotationCheck = false;
-    // ‰ñ“]Ï‚İ‚©‚Ç‚¤‚©
+    // å›è»¢æ¸ˆã¿ã‹ã©ã†ã‹
     private bool hasRotated = false;
-    // ‰ñ“]‘¬“x
+    // å›è»¢é€Ÿåº¦
     private float speed = 1;
 
-    //------------ŠeƒvƒƒpƒeƒB
+    //------------å„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
     public bool IsRotated 
     {
@@ -43,7 +43,7 @@ public class CubeRotater : MonoBehaviour
 
     //------------
 
-    // ƒLƒ…[ƒu‚Ì‰ñ“]ˆ—
+    // ã‚­ãƒ¥ãƒ¼ãƒ–ã®å›è»¢å‡¦ç†
     public CubeFaller[,,] RotateCube(string _direction, CubeFaller[,,] boardState)
     {
         preRotate = _direction;
@@ -58,7 +58,7 @@ public class CubeRotater : MonoBehaviour
         return RotateBoardState(_direction, boardState);
     }
 
-    // ‰ñ“]ˆ—
+    // å›è»¢å‡¦ç†
     IEnumerator Rotate(string _direction, CubeFaller[,,] boardState)
     {
         float count = 90 / speed;
@@ -100,12 +100,12 @@ public class CubeRotater : MonoBehaviour
         hasRotated = true;
     }
 
-    // ”z—ñ‚Ì‰ñ“]ˆ—
+    // é…åˆ—ã®å›è»¢å‡¦ç†
     private CubeFaller[,,] RotateBoardState(string _direction, CubeFaller[,,] boardState)
     {
         CubeFaller[,,] rotatedBoardState = new CubeFaller[3, 3, 3];
 
-        // ”z—ñ‚ğ‰ñ“]
+        // é…åˆ—ã‚’å›è»¢
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
@@ -134,19 +134,19 @@ public class CubeRotater : MonoBehaviour
             }
         }
 
-        //‰ñ“]Œã‚Ì”»’è‚Ì”z—ñ‚Ì—‰º
+        //å›è»¢å¾Œã®åˆ¤å®šã®é…åˆ—ã®è½ä¸‹
         for (int i = 0; i < 3; i++)
         {
             for (int k = 0; k < 3; k++)
             {
-                // 2’i–Ú‚Ìˆ—
+                // 2æ®µç›®ã®å‡¦ç†
                 if (rotatedBoardState[i, 1, k] != null && rotatedBoardState[i, 0, k] == null)
                 {
                     rotatedBoardState[i, 0, k] = rotatedBoardState[i, 1, k];
                     rotatedBoardState[i, 1, k] = null;
                 }
 
-                // 3’i–Ú‚Ìˆ—
+                // 3æ®µç›®ã®å‡¦ç†
                 if (rotatedBoardState[i, 2, k] != null && rotatedBoardState[i, 1, k] == null)
                 {
                     rotatedBoardState[i, 1, k] = rotatedBoardState[i, 2, k];

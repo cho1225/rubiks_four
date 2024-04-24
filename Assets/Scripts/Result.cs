@@ -1,16 +1,16 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
 public class Result : MonoBehaviour
 {
-    // ƒQ[ƒ€‚ÌŸÒ
+    // ã‚²ãƒ¼ãƒ ã®å‹è€…
     private int winner;
-    // ƒQ[ƒ€I—¹Œã‚ÌBoardState
+    // ã‚²ãƒ¼ãƒ çµ‚äº†å¾Œã®BoardState
     private int[,,] resultBoardState = new int[3, 3, 3];
 
-    // DontDestroyOnLoad‚Ìİ’è
+    // DontDestroyOnLoadã®è¨­å®š
     void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Result");
@@ -23,7 +23,7 @@ public class Result : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    //------------ŠeƒvƒƒpƒeƒB
+    //------------å„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
     public int[,,] ResultBoardState { get { return resultBoardState; } }
 
@@ -31,7 +31,7 @@ public class Result : MonoBehaviour
 
     //------------
 
-    // ƒŠƒUƒ‹ƒg‚Ì‰Šú‰»
+    // ãƒªã‚¶ãƒ«ãƒˆã®åˆæœŸåŒ–
     public void InitializeResult()
     {
         winner = 0;
@@ -48,7 +48,7 @@ public class Result : MonoBehaviour
         }
     }
 
-    // ƒQ[ƒ€‚ÌƒŠƒUƒ‹ƒg‚ğƒZƒbƒg
+    // ã‚²ãƒ¼ãƒ ã®ãƒªã‚¶ãƒ«ãƒˆã‚’ã‚»ãƒƒãƒˆ
     public void SetResult(CubeFaller[,,] boardState, string judge)
     {
         if (judge == "red")

@@ -1,24 +1,24 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeManager : MonoBehaviour
 {
-    //------------QÆ‚·‚éƒXƒNƒŠƒvƒg
+    //------------å‚ç…§ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 
     private CubeFaller[,,] boardState = new CubeFaller[3, 3, 3];
     [SerializeField] private CubeRotater cubeRotater;
 
     //------------
 
-    // ƒLƒ…[ƒu¶¬‚Ì‚½‚ß‚ÌƒvƒŒƒnƒu
+    // ã‚­ãƒ¥ãƒ¼ãƒ–ç”Ÿæˆã®ãŸã‚ã®ãƒ—ãƒ¬ãƒãƒ–
     [SerializeField] private GameObject[] Cubes;
-    /* Ÿ‚É¶¬‚³‚ê‚éƒLƒ…[ƒu‚ª‰½F‚©
-       ŠDF‚Í0AÔF‚Í1AÂF‚Í2 */
+    /* æ¬¡ã«ç”Ÿæˆã•ã‚Œã‚‹ã‚­ãƒ¥ãƒ¼ãƒ–ãŒä½•è‰²ã‹
+       ç°è‰²ã¯0ã€èµ¤è‰²ã¯1ã€é’è‰²ã¯2 */
     private int nextCubeColorIndex = 0;
 
-    //------------ŠeƒvƒƒpƒeƒB
+    //------------å„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
     public CubeFaller[,,] BoardState
     {
@@ -34,31 +34,31 @@ public class CubeManager : MonoBehaviour
 
     public int NextCubeColorIndex { get { return nextCubeColorIndex; } }
 
-    // ‰ñ“]ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©
+    // å›è»¢ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹
     public bool IsRotated => cubeRotater.IsRotated;
 
-    // ‚Ğ‚Æ‚Â‘O‚É‰ñ“]‚µ‚½•ûŒü
+    // ã²ã¨ã¤å‰ã«å›è»¢ã—ãŸæ–¹å‘
     public string PreRotate => cubeRotater.PreRotate;
 
     //------------
 
-    // ƒ‰ƒ“ƒ_ƒ€‚ÈÀ•W‚ğì¬
+    // ãƒ©ãƒ³ãƒ€ãƒ ãªåº§æ¨™ã‚’ä½œæˆ
     private (float, float) GenerateRandomPosition()
     {
-        // -1`1‚Ü‚Å‚Ìƒ‰ƒ“ƒ_ƒ€‚ÈƒCƒ“ƒfƒbƒNƒX‚ğ‘ã“ü
+        // -1ï½1ã¾ã§ã®ãƒ©ãƒ³ãƒ€ãƒ ãªã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ä»£å…¥
         int xRandomIndex = UnityEngine.Random.Range(-1, 2);
         int zRandomIndex = UnityEngine.Random.Range(-1, 2);
 
         return (xRandomIndex, zRandomIndex);
     }
 
-    // ƒ‰ƒ“ƒ_ƒ€‚ÈêŠ‚ÉŠDF‚ÌƒLƒ…[ƒu‚ğ¶¬‚·‚é
+    // ãƒ©ãƒ³ãƒ€ãƒ ãªå ´æ‰€ã«ç°è‰²ã®ã‚­ãƒ¥ãƒ¼ãƒ–ã‚’ç”Ÿæˆã™ã‚‹
     public void GenerateGrayCube()
     {
         GenerateCube(GenerateRandomPosition(), nextCubeColorIndex);
     }
 
-    // w’è‚³‚ê‚½À•W‚É”CˆÓ‚ÌƒLƒ…[ƒu‚ğ¶¬
+    // æŒ‡å®šã•ã‚ŒãŸåº§æ¨™ã«ä»»æ„ã®ã‚­ãƒ¥ãƒ¼ãƒ–ã‚’ç”Ÿæˆ
     public void GenerateCube((float, float) position, int _cubeColor)
     {
         GameObject obj = Cubes[_cubeColor];
@@ -71,7 +71,7 @@ public class CubeManager : MonoBehaviour
         SwitchCubeColor();
     }
 
-    // ¶¬‚³‚ê‚½ƒLƒ…[ƒui—‰ºÏj‚ğ”z—ñ‚É‚ ‚ç‚©‚¶‚ß’Ç‰Á
+    // ç”Ÿæˆã•ã‚ŒãŸã‚­ãƒ¥ãƒ¼ãƒ–ï¼ˆè½ä¸‹æ¸ˆï¼‰ã‚’é…åˆ—ã«ã‚ã‚‰ã‹ã˜ã‚è¿½åŠ 
     private void SetCubeOnBoard((float, float) position, GameObject newCube)
     {
         for (int i = 0; i < 3; i++)
@@ -84,7 +84,7 @@ public class CubeManager : MonoBehaviour
         }
     }
 
-    // Ÿ‚É¶¬‚³‚ê‚éƒLƒ…[ƒu‚ÌF‚ğØ‚è‘Ö‚¦‚é
+    // æ¬¡ã«ç”Ÿæˆã•ã‚Œã‚‹ã‚­ãƒ¥ãƒ¼ãƒ–ã®è‰²ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
     private void SwitchCubeColor()
     {
         if (nextCubeColorIndex == 1)
@@ -96,7 +96,7 @@ public class CubeManager : MonoBehaviour
         }
     }
 
-    // ‚·‚×‚Ä‚ÌƒLƒ…[ƒu‚Ì—‰ºˆ—‚ğŠÇ—
+    // ã™ã¹ã¦ã®ã‚­ãƒ¥ãƒ¼ãƒ–ã®è½ä¸‹å‡¦ç†ã‚’ç®¡ç†
     public void FallAllCube()
     {
         for (int i = 0; i < 3; i++)
@@ -129,7 +129,7 @@ public class CubeManager : MonoBehaviour
         cubeRotater.IsRotated = false;
     }
 
-    // ‚·‚×‚Ä‚ÌƒLƒ…[ƒu‚ª—‰ºÏ‚İ‚©‚Ç‚¤‚©‚ğ”»’è
+    // ã™ã¹ã¦ã®ã‚­ãƒ¥ãƒ¼ãƒ–ãŒè½ä¸‹æ¸ˆã¿ã‹ã©ã†ã‹ã‚’åˆ¤å®š
     public bool AllHasFalled()
     {
         for (int i = 0; i < 3; i++)
@@ -151,7 +151,7 @@ public class CubeManager : MonoBehaviour
         return true;
     }
 
-    // ‚·‚×‚Ä‚ÌƒLƒ…[ƒu‚ğ–¢—‰º‚Éİ’è
+    // ã™ã¹ã¦ã®ã‚­ãƒ¥ãƒ¼ãƒ–ã‚’æœªè½ä¸‹ã«è¨­å®š
     public void ResetAllCube()
     {
         for (int i = 0; i < 3; i++)

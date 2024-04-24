@@ -1,15 +1,15 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TitleManager : MonoBehaviour
 {
-    // QÆ‚·‚éƒXƒNƒŠƒvƒg
+    // å‚ç…§ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
     [SerializeField] private TutrialManager tutrialManager;
-    // ƒ`ƒ…[ƒgƒŠƒAƒ‹•\¦—p‚Ìƒpƒlƒ‹
+    // ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«è¡¨ç¤ºç”¨ã®ãƒ‘ãƒãƒ«
     [SerializeField] private GameObject tutrialPanel;
 
-    // ƒ^ƒCƒgƒ‹ƒV[ƒ“‚ÌƒLƒ…[ƒu‚ğ‰ñ“]
+    // ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®ã‚­ãƒ¥ãƒ¼ãƒ–ã‚’å›è»¢
     void Update()
     {
         transform.Rotate(new Vector3(-7, -3, 5) * Time.deltaTime);
@@ -20,7 +20,7 @@ public class TitleManager : MonoBehaviour
         }
     }
 
-    // ƒ`ƒ…[ƒgƒŠƒAƒ‹‚ğ•\¦‚·‚é‚©‚ğ§Œä‚·‚é
+    // ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹ã‹ã‚’åˆ¶å¾¡ã™ã‚‹
     public void SetTutrial()
     {
         tutrialPanel.SetActive(!tutrialPanel.activeSelf);

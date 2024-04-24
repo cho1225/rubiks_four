@@ -1,25 +1,25 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Panel : MonoBehaviour
 {
-    // ƒ}ƒEƒXƒI[ƒo[‚ÌF
+    // ãƒã‚¦ã‚¹ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®è‰²
     private Color mouseOverColor = Color.gray;
-    // Œ³‚ÌF
+    // å…ƒã®è‰²
     private Color originalColor;
-    // ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌRenderer
+    // ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®Renderer
     private MeshRenderer meshRenderer;
-    // ƒpƒlƒ‹‚ÌBoxCollider
+    // ãƒ‘ãƒãƒ«ã®BoxCollider
     private BoxCollider boxCollider;
-    // ƒpƒlƒ‹‚ÌxÀ•W
+    // ãƒ‘ãƒãƒ«ã®xåº§æ¨™
     private float x;
-    // ƒpƒlƒ‹‚ÌzÀ•W
+    // ãƒ‘ãƒãƒ«ã®zåº§æ¨™
     private float z;
-    // ƒpƒlƒ‹‚ª‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©
+    // ãƒ‘ãƒãƒ«ãŒæŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹
     private bool push;
 
-    //------------ŠeƒvƒƒpƒeƒB
+    //------------å„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
     public float X { get { return x; } }
 
@@ -33,26 +33,26 @@ public class Panel : MonoBehaviour
 
     //------------
 
-    // Panel‚Ì‰Šú‰»
+    // Panelã®åˆæœŸåŒ–
     public void InitializePanel()
     {
-        // ƒpƒlƒ‹‚Ìî•ñ‚ğƒZƒbƒg
+        // ãƒ‘ãƒãƒ«ã®æƒ…å ±ã‚’ã‚»ãƒƒãƒˆ
         x = this.transform.position.x;
         z = this.transform.position.z;
         push = false;
 
-        // RendererƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ‚Æ‚Á‚Ä‚­‚é
+        // Rendererã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ã¨ã£ã¦ãã‚‹
         meshRenderer = GetComponent<MeshRenderer>();
-        // ColliderƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ‚Æ‚Á‚Ä‚­‚é
+        // Colliderã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ã¨ã£ã¦ãã‚‹
         boxCollider = GetComponent<BoxCollider>();
-        // ƒIƒŠƒWƒiƒ‹‚ÌF‚ğ‚Æ‚Á‚Ä‚­‚é
+        // ã‚ªãƒªã‚¸ãƒŠãƒ«ã®è‰²ã‚’ã¨ã£ã¦ãã‚‹
         originalColor = meshRenderer.material.color;
     }
 
-    // ƒpƒlƒ‹‚ÌƒRƒ‰ƒCƒ_[‚ª—LŒø‚©‚Ç‚¤‚©‚ğİ’è
+    // ãƒ‘ãƒãƒ«ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒæœ‰åŠ¹ã‹ã©ã†ã‹ã‚’è¨­å®š
     public void SetEnabledPanel(bool _bool) { boxCollider.enabled = _bool; }
 
-    // ƒpƒlƒ‹‚ğ‚à‚Æ‚Ìó‘Ô‚É–ß‚·
+    // ãƒ‘ãƒãƒ«ã‚’ã‚‚ã¨ã®çŠ¶æ…‹ã«æˆ»ã™
     public void ResetPanel()
     {
         Push = false;
@@ -60,11 +60,11 @@ public class Panel : MonoBehaviour
 
     }
 
-    // ƒpƒlƒ‹‚ªƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«‚Ìˆ—
+    // ãƒ‘ãƒãƒ«ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ãã®å‡¦ç†
     public void OnClick() { Push = true; }
 
-    // ƒ}ƒEƒXƒI[ƒo[‚Ìˆ—
+    // ãƒã‚¦ã‚¹ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®å‡¦ç†
     void OnMouseOver() { meshRenderer.material.color = mouseOverColor; }
-    // ƒ}ƒEƒXƒI[ƒo[‚Å‚Í‚È‚¢‚Ìˆ—
+    // ãƒã‚¦ã‚¹ã‚ªãƒ¼ãƒãƒ¼ã§ã¯ãªã„æ™‚ã®å‡¦ç†
     void OnMouseExit() { meshRenderer.material.color = originalColor; }
 }

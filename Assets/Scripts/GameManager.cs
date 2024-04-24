@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //------------QÆ‚·‚éƒXƒNƒŠƒvƒg
+    //------------å‚ç…§ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 
     [SerializeField] private PanelManager panelManager;
     [SerializeField] private CubeManager cubeManager;
@@ -15,27 +15,27 @@ public class GameManager : MonoBehaviour
 
     //------------
 
-    // ƒQ[ƒ€ƒtƒF[ƒY‚Ì”z—ñ
+    // ã‚²ãƒ¼ãƒ ãƒ•ã‚§ãƒ¼ã‚ºã®é…åˆ—
     private string[] gameState = { "CanPush", "Falling", "Judge", "Rotate", "Falling", "Judge" };
-    // Œ»İ‚ÌƒQ[ƒ€ƒtƒF[ƒY
+    // ç¾åœ¨ã®ã‚²ãƒ¼ãƒ ãƒ•ã‚§ãƒ¼ã‚º
     private int gameStateNumber = 4;
 
-    // ŠeƒXƒNƒŠƒvƒg‚ÌStartŠÖ”‚Í‡”Ô‚ª•ÛØ‚³‚ê‚Ä‚¢‚È‚¢‚Ì‚ÅˆêŠ‡‚Å‰Šú‰»
+    // å„ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®Starté–¢æ•°ã¯é †ç•ªãŒä¿è¨¼ã•ã‚Œã¦ã„ãªã„ã®ã§ä¸€æ‹¬ã§åˆæœŸåŒ–
     void Start()
     {
-        // DontDestroyOnLoad‚ğg—p‚µ‚Ä‚¢‚é‚½‚ßAFind‚Å’T‚·•K—v‚ª‚ ‚é
+        // DontDestroyOnLoadã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ãŸã‚ã€Findã§æ¢ã™å¿…è¦ãŒã‚ã‚‹
         result = GameObject.Find("Result").GetComponent<Result>();
         result.InitializeResult();
-        // Panel‚ğ‰Šú‰»
+        // Panelã‚’åˆæœŸåŒ–
         panelManager.InitializePanels();
-        // Å‰‚ÉŠDF‚ÌƒLƒ…[ƒu‚ğ’Ç‰Á
+        // æœ€åˆã«ç°è‰²ã®ã‚­ãƒ¥ãƒ¼ãƒ–ã‚’è¿½åŠ 
         cubeManager.GenerateGrayCube();
     }
 
-    // ƒƒCƒ“ˆ—
+    // ãƒ¡ã‚¤ãƒ³å‡¦ç†
     void Update()
     {
-        // ƒpƒlƒ‹‚ğ‰Ÿ‚·ƒtƒF[ƒY
+        // ãƒ‘ãƒãƒ«ã‚’æŠ¼ã™ãƒ•ã‚§ãƒ¼ã‚º
         if (gameState[gameStateNumber] == "CanPush")
         {
             if (panelManager.IsPushes())
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             }
             panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.BoardState);
         }
-        // ƒLƒ…[ƒu‚Ì—‰ºƒtƒF[ƒY
+        // ã‚­ãƒ¥ãƒ¼ãƒ–ã®è½ä¸‹ãƒ•ã‚§ãƒ¼ã‚º
         if (gameState[gameStateNumber] == "Falling")
         {
             panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.BoardState);
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
                 SetGameState();
             }
         }
-        // ƒLƒ…[ƒu‚Ì‰ñ“]ƒtƒF[ƒY
+        // ã‚­ãƒ¥ãƒ¼ãƒ–ã®å›è»¢ãƒ•ã‚§ãƒ¼ã‚º
         if (gameState[gameStateNumber] == "Rotate")
         {
             if (cubeManager.IsRotated)
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
                 SetGameState();
             }
         }
-        // Ÿ—˜”»’èƒtƒF[ƒY
+        // å‹åˆ©åˆ¤å®šãƒ•ã‚§ãƒ¼ã‚º
         if (gameState[gameStateNumber] == "Judge")
         {
             if (judgeManager.CheckWinner(cubeManager.BoardState) != "done") 
@@ -83,14 +83,14 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                // ‰ñ“]‘O‚ÌƒWƒƒƒbƒW‚©
+                // å›è»¢å‰ã®ã‚¸ãƒ£ãƒƒã‚¸ã‹
                 if (gameStateNumber == 2)
                 {
                     judgeManager.HasJudge = false;
                     uiManager.SetInteractiveButton(cubeManager.PreRotate);
                     uiManager.SetBottunActive(true);
                 }
-                // ƒvƒbƒVƒ…‘O‚ÌƒWƒƒƒbƒW‚©
+                // ãƒ—ãƒƒã‚·ãƒ¥å‰ã®ã‚¸ãƒ£ãƒƒã‚¸ã‹
                 if (gameStateNumber == 5)
                 {
                     judgeManager.HasJudge = false;
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ƒtƒF[ƒY‚ğŸ‚Éi‚ß‚é
+    // ãƒ•ã‚§ãƒ¼ã‚ºã‚’æ¬¡ã«é€²ã‚ã‚‹
     private void SetGameState()
     {
         gameStateNumber = (gameStateNumber + 1) % 6;
