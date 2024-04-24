@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+﻿// キューブの落下を制御
 using UnityEngine;
 
 public class CubeFaller : MonoBehaviour

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// ResultSceneを制御
 using UnityEngine;
 using UnityEngine.UI;
 

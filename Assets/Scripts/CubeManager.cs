@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿// キューブ全体を制御
 using UnityEngine;
 
 public class CubeManager : MonoBehaviour

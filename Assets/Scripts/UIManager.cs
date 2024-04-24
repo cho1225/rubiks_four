@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// インゲームのUIを制御
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

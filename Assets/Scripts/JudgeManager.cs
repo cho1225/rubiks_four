@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
+﻿// 勝ち負けの判定を制御
 using UnityEngine;
 
 public class JudgeManager : MonoBehaviour

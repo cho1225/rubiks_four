@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// パネル全体を制御
 using UnityEngine;
 
 public class PanelManager : MonoBehaviour

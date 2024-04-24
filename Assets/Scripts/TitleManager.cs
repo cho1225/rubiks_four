@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// TitleSceneを制御
 using UnityEngine;
 
 public class TitleManager : MonoBehaviour

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// キューブを追加するパネルを制御
 using UnityEngine;
 
 public class Panel : MonoBehaviour

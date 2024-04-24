@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// インゲーム全体の進行を制御
 using UnityEngine;
 
 public class GameManager : MonoBehaviour

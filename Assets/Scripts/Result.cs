@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
+﻿// リザルトの値を制御
 using UnityEngine;
 
 public class Result : MonoBehaviour

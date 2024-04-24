@@ -1,8 +1,6 @@
-﻿using System;
+﻿// キューブの回転を制御
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CubeRotater : MonoBehaviour
 {
