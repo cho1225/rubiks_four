@@ -36,9 +36,9 @@ public class PanelManager : MonoBehaviour
     }
 
     // すべてのパネルのコライダーが有効かどうかを管理
-    public void EnabledAllPanel(string gameState, CubeFaller[,,] boardState)
+    public void EnabledAllPanel(GameManager.GameState gameState, CubeFaller[,,] boardState)
     {
-        if (gameState == "CanPush")
+        if (gameState == GameManager.GameState.CanPush)
         {
             foreach (Panel panel in panels)
             {

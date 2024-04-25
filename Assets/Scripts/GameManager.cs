@@ -14,10 +14,18 @@ public class GameManager : MonoBehaviour
 
     //------------
 
+    // ゲームフェーズのEnum
+    public enum GameState
+    {
+        CanPush, 
+        Falling1, 
+        Judge1,
+        Rotate, 
+        Falling2,
+        Judge2
+    }
     // ゲームフェーズの配列
-    private string[] gameState = { "CanPush", "Falling", "Judge", "Rotate", "Falling", "Judge" };
-    // 現在のゲームフェーズ
-    private int gameStateNumber = 4;
+    [SerializeField] private GameState gameState = GameState.Falling2;
 
     // 各スクリプトのStart関数は順番が保証されていないので一括で初期化
     void Start()
@@ -35,46 +43,66 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // パネルを押すフェーズ
-        if (gameState[gameStateNumber] == "CanPush")
+        if (gameState == GameState.CanPush)
         {
+            panelManager.EnabledAllPanel(gameState, cubeManager.BoardState);
+
+            // パネルが押されたときの処理
             if (panelManager.IsPushes())
             {
-                SetGameState();
                 panelManager.SetPushes();
                 cubeManager.GenerateCube(panelManager.XZ, cubeManager.NextCubeColorIndex);
+                SetGameState(GameState.Falling1);
             }
-            panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.BoardState);
         }
+
         // キューブの落下フェーズ
-        if (gameState[gameStateNumber] == "Falling")
+        if (gameState == GameState.Falling1 || gameState == GameState.Falling2)
         {
-            panelManager.EnabledAllPanel(gameState[gameStateNumber], cubeManager.BoardState);
+            panelManager.EnabledAllPanel(gameState, cubeManager.BoardState);
             cubeManager.HasRotated = false;
             cubeManager.FallAllCube();
+
+            // キューブが全て落ちた後の処理
             if (cubeManager.AllHasFalled())
             {
-                SetGameState();
+                // 回転前の落下か
+                if (gameState == GameState.Falling1)
+                {
+                    SetGameState(GameState.Judge1);
+                }
+                // プッシュ前の落下か
+                if (gameState == GameState.Falling2)
+                {
+                    SetGameState(GameState.Judge2);
+                }
             }
         }
+
         // キューブの回転フェーズ
-        if (gameState[gameStateNumber] == "Rotate")
+        if (gameState == GameState.Rotate)
         {
+            // 回転のボタンが押されたときの処理
             if (cubeManager.IsRotated)
             {
                 uiManager.SetWakuActive(false);
                 uiManager.SetBottunActive(false);
                 cubeManager.RotateAllCube();
             }
+
+            // 回転が終わった後の処理
             if (cubeManager.HasRotated)
             {
                 uiManager.SetWakuActive(true);
                 uiManager.SetBottunActive(false);
-                SetGameState();
+                SetGameState(GameState.Falling2);
             }
         }
+
         // 勝利判定フェーズ
-        if (gameState[gameStateNumber] == "Judge")
+        if (gameState == GameState.Judge1 || gameState == GameState.Judge2)
         {
+            // 勝者がいるかどうか
             if (judgeManager.CheckWinner(cubeManager.BoardState) != "done") 
             {   
                 result.SetResult(cubeManager.BoardState, judgeManager.CheckWinner(cubeManager.BoardState));
@@ -83,26 +111,27 @@ public class GameManager : MonoBehaviour
             else
             {
                 // 回転前のジャッジか
-                if (gameStateNumber == 2)
+                if (gameState == GameState.Judge1)
                 {
                     judgeManager.HasJudge = false;
                     uiManager.SetInteractiveButton(cubeManager.PreRotate);
                     uiManager.SetBottunActive(true);
+                    SetGameState(GameState.Rotate);
                 }
                 // プッシュ前のジャッジか
-                if (gameStateNumber == 5)
+                if (gameState == GameState.Judge2)
                 {
                     judgeManager.HasJudge = false;
                     uiManager.SetText(cubeManager.NextCubeColorIndex);
+                    SetGameState(GameState.CanPush);
                 }
-                SetGameState();
             }
         }
     }
 
     // フェーズを次に進める
-    private void SetGameState()
+    private void SetGameState(GameState _gameState)
     {
-        gameStateNumber = (gameStateNumber + 1) % 6;
+        gameState = _gameState;
     }
 }
