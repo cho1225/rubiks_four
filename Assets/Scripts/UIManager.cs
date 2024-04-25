@@ -15,14 +15,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textMeshPro;
 
     // どちらの手番かを表すtextを設定
-    public void SetText(int nextCubeColor)
+    public void SetText(CubeManager.CubeColor nextCubeColor)
     {
-        if (nextCubeColor == 1)
+        if (nextCubeColor == CubeManager.CubeColor.Red)
         {
             textMeshPro.text = "red";
             textMeshPro.color = Color.red;
         }
-        else if (nextCubeColor == 2)
+        else if (nextCubeColor == CubeManager.CubeColor.Blue)
         {
             textMeshPro.text = "blue";
             textMeshPro.color = Color.blue;

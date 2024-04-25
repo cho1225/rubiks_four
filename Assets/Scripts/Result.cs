@@ -47,15 +47,19 @@ public class Result : MonoBehaviour
     }
 
     // ゲームのリザルトをセット
-    public void SetResult(CubeFaller[,,] boardState, string judge)
+    public void SetResult(CubeFaller[,,] boardState, JudgeManager.Winner judge)
     {
-        if (judge == "red")
+        if (judge == JudgeManager.Winner.Red)
         {
             winner = 1;
         }
-        else if (judge == "blue")
+        else if (judge == JudgeManager.Winner.Blue)
         {
             winner = 2;
+        }
+        else
+        {
+            winner = 3;
         }
 
         for (int i = 0; i < 3; i++)
@@ -66,15 +70,15 @@ public class Result : MonoBehaviour
                 {
                     if (boardState[i, j, k])
                     {
-                        if (boardState[i, j, k].CubeColorIndex == 1)
+                        if (boardState[i, j, k].GetCubeColor == CubeManager.CubeColor.Red)
                         {
                             resultBoardState[i, j, k] = 1;
                         }
-                        else if (boardState[i, j, k].CubeColorIndex == 2)
+                        else if (boardState[i, j, k].GetCubeColor == CubeManager.CubeColor.Blue)
                         {
                             resultBoardState[i, j, k] = 2;
                         }
-                        else if (boardState[i, j, k].CubeColorIndex == 0)
+                        else if (boardState[i, j, k].GetCubeColor == CubeManager.CubeColor.Gray)
                         {
                             resultBoardState[i, j, k] = 0;
                         }

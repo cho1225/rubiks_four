@@ -7,9 +7,8 @@ public class CubeFaller : MonoBehaviour
     private bool hasFalled = false;
     // 落下のスピード
     private float speed = 1.0f;
-    /* このキューブが何色か
-       灰色は0、赤色は1、青色は2 */
-    [SerializeField] private int cubeColorIndex;
+    // このキューブが何色か
+    [SerializeField] private CubeManager.CubeColor cubeColor;
 
     //------------各プロパティ
 
@@ -19,7 +18,7 @@ public class CubeFaller : MonoBehaviour
         set { hasFalled = value; }
     }
 
-    public int CubeColorIndex { get { return cubeColorIndex; } }
+    public CubeManager.CubeColor GetCubeColor { get { return cubeColor; } }
 
     //------------
 

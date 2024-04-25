@@ -11,7 +11,8 @@ public class ResultManager : MonoBehaviour
 
     //------------結果の表示に必要な設定
 
-    [SerializeField]private Image mainImage;
+    [SerializeField] private Image mainImage;
+    [SerializeField] private Sprite grayWinSpr;
     [SerializeField] private Sprite redWinSpr;
     [SerializeField] private Sprite blueWinSpr;
 
@@ -74,6 +75,10 @@ public class ResultManager : MonoBehaviour
         else if (result.Winner == 2)
         {
             mainImage.sprite = blueWinSpr;
+        }
+        else if (result.Winner == 3)
+        {
+            mainImage.sprite = grayWinSpr;
         }
         else
         {

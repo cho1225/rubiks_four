@@ -12,9 +12,15 @@ public class CubeManager : MonoBehaviour
 
     // キューブ生成のためのプレハブ
     [SerializeField] private GameObject[] Cubes;
-    /* 次に生成されるキューブが何色か
-       灰色は0、赤色は1、青色は2 */
-    private int nextCubeColorIndex = 0;
+    // キューブの色のEnum
+    public enum CubeColor
+    {
+        Gray,
+        Red,
+        Blue
+    }
+    // 次に生成されるキューブが何色か
+    private CubeColor nextCubeColor = CubeColor.Gray;
 
     //------------各プロパティ
 
@@ -30,7 +36,7 @@ public class CubeManager : MonoBehaviour
         set { cubeRotater.HasRotated = value; }
     }
 
-    public int NextCubeColorIndex { get { return nextCubeColorIndex; } }
+    public CubeColor GetNextCubeColor { get { return nextCubeColor; } }
 
     // 回転ボタンが押されたかどうか
     public bool IsRotated => cubeRotater.IsRotated;
@@ -44,8 +50,8 @@ public class CubeManager : MonoBehaviour
     private (float, float) GenerateRandomPosition()
     {
         // -1～1までのランダムなインデックスを代入
-        int xRandomIndex = UnityEngine.Random.Range(-1, 2);
-        int zRandomIndex = UnityEngine.Random.Range(-1, 2);
+        int xRandomIndex = Random.Range(-1, 2);
+        int zRandomIndex = Random.Range(-1, 2);
 
         return (xRandomIndex, zRandomIndex);
     }
@@ -53,13 +59,13 @@ public class CubeManager : MonoBehaviour
     // ランダムな場所に灰色のキューブを生成する
     public void GenerateGrayCube()
     {
-        GenerateCube(GenerateRandomPosition(), nextCubeColorIndex);
+        GenerateCube(GenerateRandomPosition(), nextCubeColor);
     }
 
     // 指定された座標に任意のキューブを生成
-    public void GenerateCube((float, float) position, int _cubeColor)
+    public void GenerateCube((float, float) position, CubeColor _cubeColor)
     {
-        GameObject obj = Cubes[_cubeColor];
+        GameObject obj = Cubes[(int)_cubeColor];
         GameObject newCube = Instantiate(obj);
         newCube.transform.parent = transform;
         newCube.transform.position = new Vector3(position.Item1, 1, position.Item2);
@@ -85,12 +91,12 @@ public class CubeManager : MonoBehaviour
     // 次に生成されるキューブの色を切り替える
     private void SwitchCubeColor()
     {
-        if (nextCubeColorIndex == 1)
+        if (nextCubeColor == CubeColor.Red)
         {
-            this.nextCubeColorIndex = 2;
+            this.nextCubeColor = CubeColor.Blue;
         }
         else {
-            this.nextCubeColorIndex = 1;
+            this.nextCubeColor = CubeColor.Red;
         }
     }
 
@@ -120,6 +126,7 @@ public class CubeManager : MonoBehaviour
         }
     }
 
+    // キューブの回転処理を管理
     public void RotateAllCube()
     {
         ResetAllCube();

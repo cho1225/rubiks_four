@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
         Falling2,
         Judge2
     }
-    // ゲームフェーズの配列
-    [SerializeField] private GameState gameState = GameState.Falling2;
+    // 現在のゲームフェーズ
+    private GameState gameState = GameState.Falling2;
 
     // 各スクリプトのStart関数は順番が保証されていないので一括で初期化
     void Start()
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
             if (panelManager.IsPushes())
             {
                 panelManager.SetPushes();
-                cubeManager.GenerateCube(panelManager.XZ, cubeManager.NextCubeColorIndex);
+                cubeManager.GenerateCube(panelManager.XZ, cubeManager.GetNextCubeColor);
                 SetGameState(GameState.Falling1);
             }
         }
@@ -103,8 +103,8 @@ public class GameManager : MonoBehaviour
         if (gameState == GameState.Judge1 || gameState == GameState.Judge2)
         {
             // 勝者がいるかどうか
-            if (judgeManager.CheckWinner(cubeManager.BoardState) != "done") 
-            {   
+            if (judgeManager.CheckWinner(cubeManager.BoardState) != JudgeManager.Winner.None)
+            {
                 result.SetResult(cubeManager.BoardState, judgeManager.CheckWinner(cubeManager.BoardState));
                 changeScene.Load("ResultScene");
             }
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
                 if (gameState == GameState.Judge2)
                 {
                     judgeManager.HasJudge = false;
-                    uiManager.SetText(cubeManager.NextCubeColorIndex);
+                    uiManager.SetText(cubeManager.GetNextCubeColor);
                     SetGameState(GameState.CanPush);
                 }
             }
