@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
             if (panelManager.IsPushes())
             {
                 panelManager.SetPushes();
-                cubeManager.GenerateCube(panelManager.XZ, cubeManager.GetNextCubeColor);
+                cubeManager.GenerateCube(panelManager.XZ, cubeManager.NextCubeColor);
                 SetGameState(GameState.Falling1);
             }
         }
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
                 if (gameState == GameState.Judge2)
                 {
                     judgeManager.HasJudge = false;
-                    uiManager.SetText(cubeManager.GetNextCubeColor);
+                    uiManager.SetText(cubeManager.NextCubeColor);
                     SetGameState(GameState.CanPush);
                 }
             }

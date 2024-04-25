@@ -36,7 +36,7 @@ public class CubeManager : MonoBehaviour
         set { cubeRotater.HasRotated = value; }
     }
 
-    public CubeColor GetNextCubeColor { get { return nextCubeColor; } }
+    public CubeColor NextCubeColor { get { return nextCubeColor; } }
 
     // 回転ボタンが押されたかどうか
     public bool IsRotated => cubeRotater.IsRotated;

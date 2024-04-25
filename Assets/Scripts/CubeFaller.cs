@@ -18,7 +18,7 @@ public class CubeFaller : MonoBehaviour
         set { hasFallen = value; }
     }
 
-    public CubeManager.CubeColor GetCubeColor { get { return cubeColor; } }
+    public CubeManager.CubeColor CubeColor { get { return cubeColor; } }
 
     //------------
 

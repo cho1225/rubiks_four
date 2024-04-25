@@ -70,15 +70,15 @@ public class Result : MonoBehaviour
                 {
                     if (boardState[i, j, k])
                     {
-                        if (boardState[i, j, k].GetCubeColor == CubeManager.CubeColor.Red)
+                        if (boardState[i, j, k].CubeColor == CubeManager.CubeColor.Red)
                         {
                             resultBoardState[i, j, k] = 1;
                         }
-                        else if (boardState[i, j, k].GetCubeColor == CubeManager.CubeColor.Blue)
+                        else if (boardState[i, j, k].CubeColor == CubeManager.CubeColor.Blue)
                         {
                             resultBoardState[i, j, k] = 2;
                         }
-                        else if (boardState[i, j, k].GetCubeColor == CubeManager.CubeColor.Gray)
+                        else if (boardState[i, j, k].CubeColor == CubeManager.CubeColor.Gray)
                         {
                             resultBoardState[i, j, k] = 0;
                         }

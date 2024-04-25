@@ -59,14 +59,14 @@ public class JudgeManager : MonoBehaviour
                             if (boardState[i, j, k] != null)
                             {
                                 // 現在のセルがプレイヤーの識別子と一致している場合、連続しているかどうかを確認
-                                if (boardState[i, j, k].GetCubeColor == CubeManager.CubeColor.Red)
+                                if (boardState[i, j, k].CubeColor == CubeManager.CubeColor.Red)
                                 {
                                     if (CheckDirection(i, j, k, CubeManager.CubeColor.Red, direction, boardState))
                                     {
                                         redWinCount++;
                                     }
                                 }
-                                if (boardState[i, j, k].GetCubeColor == CubeManager.CubeColor.Blue)
+                                if (boardState[i, j, k].CubeColor == CubeManager.CubeColor.Blue)
                                 {
                                     if (CheckDirection(i, j, k, CubeManager.CubeColor.Blue, direction, boardState))
                                     {
@@ -117,7 +117,7 @@ public class JudgeManager : MonoBehaviour
             }
 
             // 連続していない場合はfalseを返す
-            if (boardState[x, y, z] == null || boardState[x, y, z].GetCubeColor != player)
+            if (boardState[x, y, z] == null || boardState[x, y, z].CubeColor != player)
             {
                 return false;
             }
