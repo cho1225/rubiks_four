@@ -118,7 +118,7 @@ public class CubeManager : MonoBehaviour
                         else
                         {
                             boardState[i, j, k].transform.position = new Vector3(i - 1, j - 1, k - 1);
-                            boardState[i, j, k].HasFalled = true;
+                            boardState[i, j, k].HasFallen = true;
                         }
                     }
                 }
@@ -145,7 +145,7 @@ public class CubeManager : MonoBehaviour
                 {
                     if (boardState[i, j, k] != null)
                     {
-                        if (!boardState[i, j, k].HasFalled)
+                        if (!boardState[i, j, k].HasFallen)
                         {
                             return false;
                         }
@@ -167,7 +167,7 @@ public class CubeManager : MonoBehaviour
                 {
                     if (boardState[i, j, k] != null)
                     {
-                        boardState[i, j, k].HasFalled = false;
+                        boardState[i, j, k].HasFallen = false;
                     }
                 }
             }

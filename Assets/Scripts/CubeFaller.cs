@@ -4,7 +4,7 @@ using UnityEngine;
 public class CubeFaller : MonoBehaviour
 {
     // このキューブが落下済みか
-    private bool hasFalled = false;
+    private bool hasFallen = false;
     // 落下のスピード
     private float speed = 1.0f;
     // このキューブが何色か
@@ -12,10 +12,10 @@ public class CubeFaller : MonoBehaviour
 
     //------------各プロパティ
 
-    public bool HasFalled
+    public bool HasFallen
     {
-        get { return hasFalled; }
-        set { hasFalled = value; }
+        get { return hasFallen; }
+        set { hasFallen = value; }
     }
 
     public CubeManager.CubeColor GetCubeColor { get { return cubeColor; } }

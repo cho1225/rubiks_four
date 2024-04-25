@@ -18,13 +18,14 @@ public class TutrialManager : MonoBehaviour
     // 表示中の画像のページ番号
     private int pageIndex;
     // チュートリアルのページ数
-    private int pageIndexMax = 6;
+    private int pageIndexMax;
     // ページ番号が変わったかどうか
     private bool isPageIndexChange = false;
 
     // チュートリアルの設定を初期化
     public void InitializeTutrial()
     {
+        pageIndexMax = tutrialSprites.Length;
         pageIndex = 0;
         tutrialImage.sprite = tutrialSprites[0];
         pageIndexText.text = (pageIndex + 1).ToString();
@@ -40,7 +41,7 @@ public class TutrialManager : MonoBehaviour
         if (isPageIndexChange)
         {
             // ボタンがインタラクティブかを設定
-            if (pageIndex >= pageIndexMax)
+            if (pageIndex >= pageIndexMax -1)
             {
                 nextButton.interactable = false;
             }
