@@ -28,9 +28,9 @@ public class PanelManager : MonoBehaviour
     public void SetPushes()
     {
         this.pushes = false;
-        for (int i = 0; i < panels.Length; i++)
+        foreach (Panel panel in panels)
         {
-            panels[i].ResetPanel();
+            panel.ResetPanel();
         }
 
     }
@@ -64,12 +64,12 @@ public class PanelManager : MonoBehaviour
     // パネルがどれか一つでも押されたかどうかを判定
     public bool IsPushes()
     {
-        for (int i = 0; i < panels.Length; i++)
+        foreach (Panel panel in panels)
         {
-            if (panels[i].Push)
+            if (panel.Push)
             {
-                x = panels[i].X;
-                z = panels[i].Z;
+                x = panel.X;
+                z = panel.Z;
                 pushes = true;
             }
         }
