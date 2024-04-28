@@ -1033,9 +1033,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultParentObject: {fileID: 1375688153}
   mainImage: {fileID: 1328990172}
+  drawSpr: {fileID: 21300000, guid: 495716d498637864ea67224bf4080782, type: 3}
   redWinSpr: {fileID: 21300000, guid: 07a4e9625f789984e8864f832f661697, type: 3}
   blueWinSpr: {fileID: 21300000, guid: 9ef88fb45b0829646b8b3dc4d9210366, type: 3}
-  grayWinSpr: {fileID: 21300000, guid: 495716d498637864ea67224bf4080782, type: 3}
   ResultGrayCube: {fileID: 5822549069855671531, guid: 8d11178ca69ba9a4f9414812360d95f9, type: 3}
   ResultRedCube: {fileID: 6110424892192099765, guid: 91cccc413f65fd044be4957ae0cba7cf, type: 3}
   ResultBlueCube: {fileID: 8296783526955889488, guid: 0ec486f77e9c1d94a930b87f63a3fa92, type: 3}

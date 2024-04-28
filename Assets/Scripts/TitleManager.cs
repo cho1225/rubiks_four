@@ -11,6 +11,7 @@ public class TitleManager : MonoBehaviour
     // タイトルシーンのキューブを回転
     void Update()
     {
+        // いい感じに見える回転の設定
         transform.Rotate(new Vector3(-7, -3, 5) * Time.deltaTime);
 
         if (tutrialPanel.activeSelf)

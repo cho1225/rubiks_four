@@ -17,7 +17,8 @@ public class CubeManager : MonoBehaviour
     {
         Gray,
         Red,
-        Blue
+        Blue,
+        None
     }
     // 次に生成されるキューブが何色か
     private CubeColor nextCubeColor = CubeColor.Gray;

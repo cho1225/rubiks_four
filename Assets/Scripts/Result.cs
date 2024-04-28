@@ -4,9 +4,17 @@ using UnityEngine;
 public class Result : MonoBehaviour
 {
     // ゲームの勝者
-    private int winner;
+    private JudgeManager.Winner winner;
     // ゲーム終了後のBoardState
-    private int[,,] resultBoardState = new int[3, 3, 3];
+    private CubeManager.CubeColor[,,] resultBoardState = new CubeManager.CubeColor[3, 3, 3];
+
+    //------------各プロパティ
+
+    public CubeManager.CubeColor[,,] ResultBoardState { get { return resultBoardState; } }
+
+    public JudgeManager.Winner Winner { get { return winner; } }
+
+    //------------
 
     // DontDestroyOnLoadの設定
     void Awake()
@@ -21,26 +29,18 @@ public class Result : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    //------------各プロパティ
-
-    public int[,,] ResultBoardState { get { return resultBoardState; } }
-
-    public int Winner { get { return winner; } }
-
-    //------------
-
     // リザルトの初期化
     public void InitializeResult()
     {
-        winner = 0;
+        winner = JudgeManager.Winner.None;
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < resultBoardState.GetLength(0); i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < resultBoardState.GetLength(1); j++)
             {
-                for (int k = 0; k < 3; k++)
+                for (int k = 0; k < resultBoardState.GetLength(2); k++)
                 {
-                    resultBoardState[i, j, k] = 9;
+                    resultBoardState[i, j, k] = CubeManager.CubeColor.None;
                 }
             }
         }
@@ -49,39 +49,17 @@ public class Result : MonoBehaviour
     // ゲームのリザルトをセット
     public void SetResult(CubeFaller[,,] boardState, JudgeManager.Winner judge)
     {
-        if (judge == JudgeManager.Winner.Red)
-        {
-            winner = 1;
-        }
-        else if (judge == JudgeManager.Winner.Blue)
-        {
-            winner = 2;
-        }
-        else
-        {
-            winner = 3;
-        }
+        winner = judge;
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < resultBoardState.GetLength(0); i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < resultBoardState.GetLength(1); j++)
             {
-                for (int k = 0; k < 3; k++)
+                for (int k = 0; k < resultBoardState.GetLength(2); k++)
                 {
                     if (boardState[i, j, k])
                     {
-                        if (boardState[i, j, k].CubeColor == CubeManager.CubeColor.Red)
-                        {
-                            resultBoardState[i, j, k] = 1;
-                        }
-                        else if (boardState[i, j, k].CubeColor == CubeManager.CubeColor.Blue)
-                        {
-                            resultBoardState[i, j, k] = 2;
-                        }
-                        else if (boardState[i, j, k].CubeColor == CubeManager.CubeColor.Gray)
-                        {
-                            resultBoardState[i, j, k] = 0;
-                        }
+                        resultBoardState[i, j, k] = boardState[i, j, k].CubeColor;
                     }
                 }
             }

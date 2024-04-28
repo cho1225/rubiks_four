@@ -12,7 +12,7 @@ public class ResultManager : MonoBehaviour
     //------------結果の表示に必要な設定
 
     [SerializeField] private Image mainImage;
-    [SerializeField] private Sprite grayWinSpr;
+    [SerializeField] private Sprite drawSpr;
     [SerializeField] private Sprite redWinSpr;
     [SerializeField] private Sprite blueWinSpr;
 
@@ -49,17 +49,17 @@ public class ResultManager : MonoBehaviour
             {
                 for (int k = 0; k < 3; k++)
                 {
-                    if (result.ResultBoardState[i, j, k] == 1)
+                    if (result.ResultBoardState[i, j, k] == CubeManager.CubeColor.Red)
                     {
                         GameObject newCube = Instantiate(ResultRedCube, resultParentObject.transform);
                         newCube.transform.position = new Vector3(i - 1, j - 1, k - 1);
                     }
-                    else if (result.ResultBoardState[i, j, k] == 2)
+                    else if (result.ResultBoardState[i, j, k] == CubeManager.CubeColor.Blue)
                     {
                         GameObject newCube = Instantiate(ResultBlueCube, resultParentObject.transform);
                         newCube.transform.position = new Vector3(i - 1, j - 1, k - 1);
                     }
-                    else if (result.ResultBoardState[i, j, k] == 0)
+                    else if (result.ResultBoardState[i, j, k] == CubeManager.CubeColor.Gray)
                     {
                         GameObject newCube = Instantiate(ResultGrayCube, resultParentObject.transform);
                         newCube.transform.position = new Vector3(i - 1, j - 1, k - 1);
@@ -68,17 +68,17 @@ public class ResultManager : MonoBehaviour
             }
         }
 
-        if (result.Winner == 1)
+        if (result.Winner == JudgeManager.Winner.Red)
         {
             mainImage.sprite = redWinSpr;
         }
-        else if (result.Winner == 2)
+        else if (result.Winner == JudgeManager.Winner.Blue)
         {
             mainImage.sprite = blueWinSpr;
         }
-        else if (result.Winner == 3)
+        else if (result.Winner == JudgeManager.Winner.Draw)
         {
-            mainImage.sprite = grayWinSpr;
+            mainImage.sprite = drawSpr;
         }
         else
         {
@@ -88,6 +88,7 @@ public class ResultManager : MonoBehaviour
 
     private void Update()
     {
+        // いい感じに見える回転の設定
         transform.Rotate(new Vector3(-7, -3, 5) * Time.deltaTime);
     }
 }
