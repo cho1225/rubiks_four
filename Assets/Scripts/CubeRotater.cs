@@ -6,16 +6,25 @@ public class CubeRotater : MonoBehaviour
 {
     // 回転ボタンが押されたかどうか
     private bool isRotated = false;
+    // 回転の方向のEnum
+    public enum Direction
+    {
+        None,
+        X,
+        Z,
+        REX,
+        REZ
+    }
     // ひとつ前に回転した方向
-    private string preRotate = "none";
+    private Direction preRotate = Direction.None;
     // 回転方向
-    private string direction;
+    private Direction rotateDirection = Direction.None;
     // 回転中かどうか
     private bool rotationCheck = false;
     // 回転済みかどうか
     private bool hasRotated = false;
     // 回転速度
-    private float speed = 1;
+    private float speed = 1.0f;
 
     //------------各プロパティ
 
@@ -25,13 +34,9 @@ public class CubeRotater : MonoBehaviour
         set { isRotated = value; }
     }
 
-    public string PreRotate { get { return preRotate; } }
+    public Direction PreRotate { get { return preRotate; } }
 
-    public string Direction
-    {
-        get { return this.direction; }
-        set { direction = value; }
-    }
+    public Direction RotateDirection { get { return this.rotateDirection; } }
 
     public bool HasRotated 
     { 
@@ -41,23 +46,46 @@ public class CubeRotater : MonoBehaviour
 
     //------------
 
-    // キューブの回転処理
-    public CubeFaller[,,] RotateCube(string _direction, CubeFaller[,,] boardState)
+    // 回転方向をセットする（ボタンではEnumを引数として設定できなかったので別で用意した）
+    public void SetRotateDirection(int directionIndex)
     {
-        preRotate = _direction;
+        switch (directionIndex)
+        {
+            case 1:
+                rotateDirection = Direction.X;
+                break;
+            case 2:
+                rotateDirection = Direction.Z;
+                break;
+            case 3:
+                rotateDirection = Direction.REX;
+                break;
+            case 4:
+                rotateDirection = Direction.REZ;
+                break;
+            default:
+                rotateDirection = Direction.None;
+                break;
+        }
+    }
+
+    // キューブの回転処理
+    public CubeFaller[,,] RotateCube(Direction direction, CubeFaller[,,] boardState)
+    {
+        preRotate = direction;
         isRotated = true;
 
         if (rotationCheck == false)
         {
             rotationCheck = true;
-            StartCoroutine(Rotate(_direction, boardState));
+            StartCoroutine(Rotate(direction, boardState));
         }
 
-        return RotateBoardState(_direction, boardState);
+        return RotateBoardState(direction, boardState);
     }
 
     // 回転処理
-    IEnumerator Rotate(string _direction, CubeFaller[,,] boardState)
+    IEnumerator Rotate(Direction direction, CubeFaller[,,] boardState)
     {
         float count = 90 / speed;
 
@@ -72,18 +100,18 @@ public class CubeRotater : MonoBehaviour
                     {
                         if (boardState[j, k, l] != null)
                         {
-                            switch (_direction)
+                            switch (direction)
                             {
-                                case "x":
+                                case Direction.X:
                                     boardState[j, k, l].transform.RotateAround(new Vector3(0, 0, 0), Vector3.left, speed);
                                     break;
-                                case "z":
+                                case Direction.Z:
                                     boardState[j, k, l].transform.RotateAround(new Vector3(0, 0, 0), Vector3.back, speed);
                                     break;
-                                case "rex":
+                                case Direction.REX:
                                     boardState[j, k, l].transform.RotateAround(new Vector3(0, 0, 0), Vector3.right, speed);
                                     break;
-                                case "rez":
+                                case Direction.REZ:
                                     boardState[j, k, l].transform.RotateAround(new Vector3(0, 0, 0), Vector3.forward, speed);
                                     break;
                                 default:
@@ -99,7 +127,7 @@ public class CubeRotater : MonoBehaviour
     }
 
     // 配列の回転処理
-    private CubeFaller[,,] RotateBoardState(string _direction, CubeFaller[,,] boardState)
+    private CubeFaller[,,] RotateBoardState(Direction direction, CubeFaller[,,] boardState)
     {
         CubeFaller[,,] rotatedBoardState = new CubeFaller[3, 3, 3];
 
@@ -110,18 +138,18 @@ public class CubeRotater : MonoBehaviour
             {
                 for (int k = 0; k < 3; k++)
                 {
-                    switch (_direction)
+                    switch (direction)
                     {
-                        case "x":
+                        case Direction.X:
                             rotatedBoardState[i, k, -j + 2] = boardState[i, j, k];
                             break;
-                        case "z":
+                        case Direction.Z:
                             rotatedBoardState[j, -i + 2, k] = boardState[i, j, k];
                             break;
-                        case "rex":
+                        case Direction.REX:
                             rotatedBoardState[i, -k + 2, j] = boardState[i, j, k];
                             break;
-                        case "rez":
+                        case Direction.REZ:
                             rotatedBoardState[-j + 2, i, k] = boardState[i, j, k];
                             break;
                         default:

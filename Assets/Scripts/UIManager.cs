@@ -42,11 +42,11 @@ public class UIManager : MonoBehaviour
     }
 
     // 指定されたボタンを押せないようにする
-    public void SetInteractiveButton(string preRotate)
+    public void SetInteractiveButton(CubeRotater.Direction preRotate)
     {
         switch (preRotate)
         {
-            case "x":
+            case CubeRotater.Direction.X:
             for (int i = 0; i < rotateButtonArray.Length; i++)
             {
                 if (i == 2)
@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
                 }
             }
             break;
-            case "z":
+            case CubeRotater.Direction.Z:
                 for (int i = 0; i < rotateButtonArray.Length; i++)
                 {
                     if (i == 3)
@@ -72,7 +72,7 @@ public class UIManager : MonoBehaviour
                     }
                 }
                 break;
-            case "rex":
+            case CubeRotater.Direction.REX:
                 for (int i = 0; i < rotateButtonArray.Length; i++)
                 {
                     if (i == 0)
@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour
                     }
                 }
                 break;
-            case "rez":
+            case CubeRotater.Direction.REZ:
                 for (int i = 0; i < rotateButtonArray.Length; i++)
                 {
                     if (i == 1)

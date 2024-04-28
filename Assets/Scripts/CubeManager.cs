@@ -42,7 +42,7 @@ public class CubeManager : MonoBehaviour
     public bool IsRotated => cubeRotater.IsRotated;
 
     // ひとつ前に回転した方向
-    public string PreRotate => cubeRotater.PreRotate;
+    public CubeRotater.Direction PreRotate => cubeRotater.PreRotate;
 
     //------------
 
@@ -130,7 +130,7 @@ public class CubeManager : MonoBehaviour
     public void RotateAllCube()
     {
         ResetAllCube();
-        BoardState = cubeRotater.RotateCube(cubeRotater.Direction, BoardState);
+        BoardState = cubeRotater.RotateCube(cubeRotater.RotateDirection, BoardState);
         cubeRotater.IsRotated = false;
     }
 
