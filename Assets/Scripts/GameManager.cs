@@ -31,7 +31,21 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // DontDestroyOnLoadを使用しているため、Findで探す必要がある
-        result = GameObject.Find("Result").GetComponent<Result>();
+        GameObject resultObject = GameObject.Find("Result");
+        if (resultObject != null)
+        {
+            result = resultObject.GetComponent<Result>();
+            if (result == null)
+            {
+                Debug.Log("Resultコンポーネントが見つかりません");
+                return;
+            }
+        }
+        else
+        {
+            Debug.Log("Resultオブジェクトが見つかりません");
+            return;
+        }
         result.InitializeResult();
         // Panelを初期化
         panelManager.InitializePanels();
@@ -42,90 +56,84 @@ public class GameManager : MonoBehaviour
     // メイン処理
     void Update()
     {
-        // パネルを押すフェーズ
-        if (gameState == GameState.CanPush)
+        switch(gameState)
         {
-            panelManager.EnabledAllPanel(gameState, cubeManager.BoardState);
+            case GameState.CanPush:
+                panelManager.EnabledAllPanel(gameState, cubeManager.BoardState);
 
-            // パネルが押されたときの処理
-            if (panelManager.IsPushes())
-            {
-                panelManager.SetPushes();
-                cubeManager.GenerateCube(panelManager.XZ, cubeManager.NextCubeColor);
-                SetGameState(GameState.Falling1);
-            }
-        }
-
-        // キューブの落下フェーズ
-        if (gameState == GameState.Falling1 || gameState == GameState.Falling2)
-        {
-            panelManager.EnabledAllPanel(gameState, cubeManager.BoardState);
-            cubeManager.HasRotated = false;
-            cubeManager.FallAllCube();
-
-            // キューブが全て落ちた後の処理
-            if (cubeManager.AllHasFalled())
-            {
-                // 回転前の落下か
-                if (gameState == GameState.Falling1)
+                // パネルが押されたときの処理
+                if (panelManager.IsPushes())
                 {
-                    SetGameState(GameState.Judge1);
+                    panelManager.SetPushes();
+                    cubeManager.GenerateCube(panelManager.XZ, cubeManager.NextCubeColor);
+                    SetGameState(GameState.Falling1);
                 }
-                // プッシュ前の落下か
-                if (gameState == GameState.Falling2)
-                {
-                    SetGameState(GameState.Judge2);
-                }
-            }
-        }
+                break;
+            case GameState.Falling1:
+            case GameState.Falling2:
+                panelManager.EnabledAllPanel(gameState, cubeManager.BoardState);
+                cubeManager.HasRotated = false;
+                cubeManager.FallAllCube();
 
-        // キューブの回転フェーズ
-        if (gameState == GameState.Rotate)
-        {
-            // 回転のボタンが押されたときの処理
-            if (cubeManager.IsRotated)
-            {
-                uiManager.SetWakuActive(false);
-                uiManager.SetBottunActive(false);
-                cubeManager.RotateAllCube();
-            }
-
-            // 回転が終わった後の処理
-            if (cubeManager.HasRotated)
-            {
-                uiManager.SetWakuActive(true);
-                uiManager.SetBottunActive(false);
-                SetGameState(GameState.Falling2);
-            }
-        }
-
-        // 勝利判定フェーズ
-        if (gameState == GameState.Judge1 || gameState == GameState.Judge2)
-        {
-            // 勝者がいるかどうか
-            if (judgeManager.CheckWinner(cubeManager.BoardState) != JudgeManager.Winner.None)
-            {
-                result.SetResult(cubeManager.BoardState, judgeManager.CheckWinner(cubeManager.BoardState));
-                changeScene.Load("ResultScene");
-            }
-            else
-            {
-                // 回転前のジャッジか
-                if (gameState == GameState.Judge1)
+                // キューブが全て落ちた後の処理
+                if (cubeManager.AllHasFalled())
                 {
-                    judgeManager.HasJudge = false;
-                    uiManager.SetInteractiveButton(cubeManager.PreRotate);
-                    uiManager.SetBottunActive(true);
-                    SetGameState(GameState.Rotate);
+                    // 回転前の落下か
+                    if (gameState == GameState.Falling1)
+                    {
+                        SetGameState(GameState.Judge1);
+                    }
+                    // プッシュ前の落下か
+                    if (gameState == GameState.Falling2)
+                    {
+                        SetGameState(GameState.Judge2);
+                    }
                 }
-                // プッシュ前のジャッジか
-                if (gameState == GameState.Judge2)
+                break;
+            case GameState.Rotate:
+                // 回転のボタンが押されたときの処理
+                if (cubeManager.IsRotated)
                 {
-                    judgeManager.HasJudge = false;
-                    uiManager.SetText(cubeManager.NextCubeColor);
-                    SetGameState(GameState.CanPush);
+                    uiManager.SetWakuActive(false);
+                    uiManager.SetBottunActive(false);
+                    cubeManager.RotateAllCube();
                 }
-            }
+
+                // 回転が終わった後の処理
+                if (cubeManager.HasRotated)
+                {
+                    uiManager.SetWakuActive(true);
+                    uiManager.SetBottunActive(false);
+                    SetGameState(GameState.Falling2);
+                }
+                break;
+            case GameState.Judge1:
+            case GameState.Judge2:
+                // 勝者がいるかどうか
+                if (judgeManager.CheckWinner(cubeManager.BoardState) != JudgeManager.Winner.None)
+                {
+                    result.SetResult(cubeManager.BoardState, judgeManager.CheckWinner(cubeManager.BoardState));
+                    changeScene.Load("ResultScene");
+                }
+                else
+                {
+                    // 回転前のジャッジか
+                    if (gameState == GameState.Judge1)
+                    {
+                        judgeManager.HasJudge = false;
+                        uiManager.SetInteractiveButton(cubeManager.PreRotate);
+                        uiManager.SetBottunActive(true);
+                        SetGameState(GameState.Rotate);
+                    }
+                    // プッシュ前のジャッジか
+                    if (gameState == GameState.Judge2)
+                    {
+                        judgeManager.HasJudge = false;
+                        uiManager.SetText(cubeManager.NextCubeColor);
+                        SetGameState(GameState.CanPush);
+                    }
+                }
+                break;
         }
     }
 
