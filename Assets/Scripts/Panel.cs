@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Panel : MonoBehaviour
 {
-    // マウスオーバー時の色
-    private Color mouseOverColor = Color.gray;
     // 元の色
     private Color originalColor;
     // ゲームオブジェクトのRenderer
@@ -55,15 +53,14 @@ public class Panel : MonoBehaviour
     public void ResetPanel()
     {
         Push = false;
-        meshRenderer.material.color = originalColor;
-
+        OnMouseExit();
     }
 
     // パネルがクリックされたときの処理
     public void OnClick() { Push = true; }
 
-    // マウスオーバー時の処理
-    void OnMouseOver() { meshRenderer.material.color = mouseOverColor; }
-    // マウスオーバーではない時の処理
+    // マウスオーバー時にパネルを灰色に変更
+    void OnMouseOver() { meshRenderer.material.color = Color.gray; }
+    // マウスオーバーではないときは元の色に戻す
     void OnMouseExit() { meshRenderer.material.color = originalColor; }
 }
