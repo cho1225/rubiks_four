@@ -3,6 +3,9 @@
 実際に遊びたい方はこちら  
 https://unityroom.com/games/rubik_four
 
+ソースコードを見たい方はこちら  
+https://github.com/cho1225/rubiks_four/tree/main/Assets/Scripts
+
 ## 使用言語
 C#(Unity)
 
